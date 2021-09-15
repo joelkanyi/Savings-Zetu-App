@@ -10,4 +10,6 @@
     <color name="main">#7966FF</color>
     <color name="light_white">#F1EEFC</color>
     <color name="secondary_blue">#9EB7FF</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="dark_gray">#ADADAD</color>
 </resources>
