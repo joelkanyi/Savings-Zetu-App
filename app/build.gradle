@@ -55,6 +55,7 @@ dependencies {
     def timber_version = "5.0.1"
     def recyclerview_version = "1.2.1"
     def glide_version = "4.12.0"
+    def circular_imageview_version = "3.1.0"
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
 
     // Ktx
@@ -121,6 +122,9 @@ dependencies {
 
     // Timber for Logging
     implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // CircularImageView
+    implementation "de.hdodenhof:circleimageview:$circular_imageview_version"
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
