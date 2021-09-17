@@ -10,4 +10,19 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/historyFragment2"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PayFragment"
+        android:label="fragment_pay"
+        tools:layout="@layout/fragment_pay" />
+    <fragment
+        android:id="@+id/paySuccessFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PaySuccessFragment"
+        android:label="fragment_pay_success"
+        tools:layout="@layout/fragment_pay_success" />
 </navigation>
