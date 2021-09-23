@@ -5,10 +5,12 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
         android:title="@string/app_name"
+        android:iconTint="@color/white"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/clearAllHistory"
+        android:iconTint="@color/white"
         android:title="Clear All" />
 </menu>

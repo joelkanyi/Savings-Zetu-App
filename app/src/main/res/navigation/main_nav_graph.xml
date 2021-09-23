@@ -11,7 +11,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/historyFragment2"
+        android:id="@+id/historyFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
@@ -25,4 +25,9 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PaySuccessFragment"
         android:label="fragment_pay_success"
         tools:layout="@layout/fragment_pay_success" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

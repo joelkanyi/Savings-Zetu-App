@@ -20,10 +20,13 @@
 
     <TextView
         android:id="@+id/textView42"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Yaay! you have made your payment"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:text="Yaay! you have made your payment. Thank you"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,13 +37,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView43">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,7 +75,7 @@
                 android:id="@+id/textView46"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:text="Date:"
                 app:layout_constraintStart_toStartOf="@+id/textView44"
                 app:layout_constraintTop_toBottomOf="@+id/textView44" />
@@ -81,7 +84,7 @@
                 android:id="@+id/textView47"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="17/09.2021 at 3:46 PM"
                 android:textStyle="bold"
@@ -90,13 +93,16 @@
 
             <TextView
                 android:id="@+id/textView48"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Kindly wait for an M-Pesa confirmation message"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Kindly wait for an M-PESA confirmation message"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="14sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView47"
                 app:layout_constraintStart_toStartOf="@+id/textView46"
                 app:layout_constraintTop_toBottomOf="@+id/textView47" />
@@ -104,26 +110,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView43"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Thank you"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/textView42"
-        app:layout_constraintStart_toStartOf="@+id/textView42"
-        app:layout_constraintTop_toBottomOf="@+id/textView42" />
-
     <com.google.android.material.button.MaterialButton
-        android:padding="15dp"
-        app:cornerRadius="8dp"
         android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="15dp"
         android:text="Back"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cardView6"
-        app:layout_constraintStart_toStartOf="@+id/cardView6"
-        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+        app:layout_constraintStart_toStartOf="@+id/cardView6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
