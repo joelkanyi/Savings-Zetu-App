@@ -37,12 +37,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_rectangle"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="TOTAL CONTRIBUTIONS"
                     android:textColor="@color/light_gray"
                     android:textSize="14sp"
@@ -170,6 +171,7 @@
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/green"
             app:cardCornerRadius="12dp"
+            android:layout_marginRight="5dp"
             app:layout_constraintEnd_toStartOf="@+id/cardView3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -198,6 +200,7 @@
             android:layout_height="80dp"
             android:backgroundTint="@color/main"
             app:cardCornerRadius="12dp"
+            android:layout_marginRight="5dp"
             app:layout_constraintEnd_toStartOf="@+id/cardView4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardView2"
@@ -226,6 +229,7 @@
             android:layout_height="80dp"
             android:backgroundTint="@color/yellow"
             app:cardCornerRadius="12dp"
+            android:layout_marginRight="5dp"
             app:layout_constraintEnd_toStartOf="@+id/cardView5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardView3"
@@ -255,7 +259,8 @@
             android:layout_height="80dp"
             android:backgroundTint="@color/pink"
             app:cardCornerRadius="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardView4"
             app:layout_constraintTop_toTopOf="@+id/cardView4">

@@ -1,4 +1,4 @@
-package com.kanyideveloper.savingszetu.ui.fragments
+package com.kanyideveloper.savingszetu.ui.fragments.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
