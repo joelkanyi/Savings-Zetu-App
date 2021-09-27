@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SavingsZetu">
         <activity
-            android:name=".ui.activities.AuthActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activities.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
