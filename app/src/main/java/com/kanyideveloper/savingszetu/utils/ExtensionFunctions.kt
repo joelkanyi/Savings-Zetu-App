@@ -15,6 +15,6 @@ inline fun <T> safeCall(action: () -> Resource<T>): Resource<T> {
     return try {
         action()
     } catch (e: Exception) {
-        Resource.Failure(e.message ?: "Unknown Error Occurred")
+        Resource.Error(e.message ?: "Unknown Error Occurred")
     }
 }

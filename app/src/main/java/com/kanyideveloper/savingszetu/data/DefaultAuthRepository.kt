@@ -18,13 +18,14 @@ class DefaultAuthRepository : AuthRepository {
     override suspend fun register(
         email: String,
         userName: String,
+        regNo: String,
         password: String
     ): Resource<AuthResult> {
         return withContext(Dispatchers.IO) {
             safeCall {
                 val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
                 val uid = result.user?.uid!!
-                val user = User(uid, userName)
+                val user = User(uid,email,userName,regNo)
                 databaseReference.child(uid).setValue(user).await()
                 Resource.Success(result)
             }
