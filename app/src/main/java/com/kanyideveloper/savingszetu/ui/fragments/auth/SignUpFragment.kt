@@ -25,6 +25,9 @@ class SignUpFragment : Fragment() {
         }
 
         binding.textViewHaveAcc.setOnClickListener {
+            if(findNavController().previousBackStackEntry != null){
+                findNavController().popBackStack()
+            }else
             findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
         }
 
