@@ -15,12 +15,7 @@ class DefaultAuthRepository : AuthRepository {
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-    override suspend fun register(
-        email: String,
-        userName: String,
-        regNo: String,
-        password: String
-    ): Resource<AuthResult> {
+    override suspend fun register(email: String, userName: String, regNo: String, password: String): Resource<AuthResult> {
         return withContext(Dispatchers.IO) {
             safeCall {
                 val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
@@ -33,6 +28,11 @@ class DefaultAuthRepository : AuthRepository {
     }
 
     override suspend fun login(email: String, password: String): Resource<AuthResult> {
-        TODO("Not yet implemented")
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val result = firebaseAuth.signInWithEmailAndPassword(email,password).await()
+                Resource.Success(result)
+            }
+        }
     }
 }

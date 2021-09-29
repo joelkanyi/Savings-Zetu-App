@@ -5,6 +5,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.kanyideveloper.savingszetu.R
+import com.kanyideveloper.savingszetu.data.AuthRepository
+import com.kanyideveloper.savingszetu.data.DefaultAuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +19,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Singleton
     @Provides
     fun providesApplicationContext(@ApplicationContext context: Context) = context
@@ -34,4 +37,9 @@ object AppModule {
     @Provides
     fun providesDispatcher() = Dispatchers.Main as CoroutineDispatcher
 
+    @Singleton
+    @Provides
+    fun providesAuthRepository() : AuthRepository {
+        return DefaultAuthRepository()
+    }
 }

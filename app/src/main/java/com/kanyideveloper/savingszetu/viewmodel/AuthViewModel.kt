@@ -1,4 +1,4 @@
-package com.kanyideveloper.savingszetu.ui.fragments.auth
+package com.kanyideveloper.savingszetu.viewmodel
 
 import android.content.Context
 import android.util.Patterns
@@ -12,11 +12,13 @@ import com.kanyideveloper.savingszetu.utils.Constants.MAX_REG_NO_LENGTH
 import com.kanyideveloper.savingszetu.utils.Constants.MIN_PASSWORD_LENGTH
 import com.kanyideveloper.savingszetu.utils.Event
 import com.kanyideveloper.savingszetu.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val applicationContext: Context,
@@ -26,6 +28,10 @@ class AuthViewModel @Inject constructor(
     private val _registerStatus = MutableLiveData<Event<Resource<AuthResult>>>()
     val registerStatus: LiveData<Event<Resource<AuthResult>>>
         get() = _registerStatus
+
+    private val _loginStatus = MutableLiveData<Event<Resource<AuthResult>>>()
+    val loginStatus: LiveData<Event<Resource<AuthResult>>>
+        get() = _loginStatus
 
     fun registerUser(
         email: String,
@@ -55,6 +61,18 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) {
             val result = authRepository.register(email, username, regNo, password)
             _registerStatus.postValue(Event(result))
+        }
+    }
+
+    fun loginUser(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            _loginStatus.postValue(Event(Resource.Error("Empty Strings")))
+        } else {
+            _loginStatus.postValue(Event(Resource.Loading()))
+            viewModelScope.launch(dispatcher) {
+                val result = authRepository.login(email, password)
+                _loginStatus.postValue(Event(result))
+            }
         }
     }
 }

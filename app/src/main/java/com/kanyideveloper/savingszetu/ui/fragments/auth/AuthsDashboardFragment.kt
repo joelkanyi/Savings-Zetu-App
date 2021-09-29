@@ -17,7 +17,7 @@ class AuthsDashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAuthsDashboardBinding.inflate(inflater, container, false)
 
         binding.buttonSignIn.setOnClickListener {
