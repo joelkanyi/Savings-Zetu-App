@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HistoryFragment"
-        android:label="fragment_history"
+        android:label="History"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/payFragment"

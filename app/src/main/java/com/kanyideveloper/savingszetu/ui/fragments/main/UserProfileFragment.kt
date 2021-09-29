@@ -1,19 +1,33 @@
 package com.kanyideveloper.savingszetu.ui.fragments.main
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.kanyideveloper.savingszetu.R
+import com.kanyideveloper.savingszetu.databinding.FragmentUserProfileBinding
+import com.kanyideveloper.savingszetu.ui.activities.AuthActivity
 
 class UserProfileFragment : Fragment() {
+
+    private lateinit var binding: FragmentUserProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+        binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        binding.textViewLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
+            requireActivity().finish()
+        }
+
+        return view
     }
 }
