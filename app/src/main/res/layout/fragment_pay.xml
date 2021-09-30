@@ -32,7 +32,7 @@
         app:tint="@color/dark_gray" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/textViewAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/luam_light"
@@ -56,7 +56,7 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -71,147 +71,147 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/textViewOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView33"
-                app:layout_constraintEnd_toStartOf="@+id/textView31"
+                app:layout_constraintBottom_toTopOf="@+id/textViewFour"
+                app:layout_constraintEnd_toStartOf="@+id/textViewTwo"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView31"
+                android:id="@+id/textViewTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView30"
-                app:layout_constraintEnd_toStartOf="@+id/textView32"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewOne"
+                app:layout_constraintEnd_toStartOf="@+id/textViewThree"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView30"
-                app:layout_constraintTop_toTopOf="@+id/textView30" />
+                app:layout_constraintStart_toEndOf="@+id/textViewOne"
+                app:layout_constraintTop_toTopOf="@+id/textViewOne" />
 
             <TextView
-                android:id="@+id/textView32"
+                android:id="@+id/textViewThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView31"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewTwo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView31"
-                app:layout_constraintTop_toTopOf="@+id/textView31" />
+                app:layout_constraintStart_toEndOf="@+id/textViewTwo"
+                app:layout_constraintTop_toTopOf="@+id/textViewTwo" />
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/textViewFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView36"
-                app:layout_constraintEnd_toStartOf="@+id/textView34"
+                app:layout_constraintBottom_toTopOf="@+id/textViewSeven"
+                app:layout_constraintEnd_toStartOf="@+id/textViewFive"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOne" />
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/textViewFive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView33"
-                app:layout_constraintEnd_toStartOf="@+id/textView35"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewFour"
+                app:layout_constraintEnd_toStartOf="@+id/textViewSix"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView33"
-                app:layout_constraintTop_toTopOf="@+id/textView33" />
+                app:layout_constraintStart_toEndOf="@+id/textViewFour"
+                app:layout_constraintTop_toTopOf="@+id/textViewFour" />
 
             <TextView
-                android:id="@+id/textView35"
+                android:id="@+id/textViewSix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView34"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewFive"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView34"
-                app:layout_constraintTop_toTopOf="@+id/textView34" />
+                app:layout_constraintStart_toEndOf="@+id/textViewFive"
+                app:layout_constraintTop_toTopOf="@+id/textViewFive" />
 
             <TextView
-                android:id="@+id/textView36"
+                android:id="@+id/textViewSeven"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="7"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView40"
-                app:layout_constraintEnd_toStartOf="@+id/textView37"
+                app:layout_constraintBottom_toTopOf="@+id/textViewDoubleZero"
+                app:layout_constraintEnd_toStartOf="@+id/textViewEight"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewFour" />
 
             <TextView
-                android:id="@+id/textView37"
+                android:id="@+id/textViewEight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="8"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView36"
-                app:layout_constraintEnd_toStartOf="@+id/textView38"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewSeven"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNine"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView36"
-                app:layout_constraintTop_toTopOf="@+id/textView36" />
+                app:layout_constraintStart_toEndOf="@+id/textViewSeven"
+                app:layout_constraintTop_toTopOf="@+id/textViewSeven" />
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/textViewNine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView37"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewEight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView37"
-                app:layout_constraintTop_toTopOf="@+id/textView37" />
+                app:layout_constraintStart_toEndOf="@+id/textViewEight"
+                app:layout_constraintTop_toTopOf="@+id/textViewEight" />
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/textViewZero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView40"
-                app:layout_constraintEnd_toStartOf="@+id/textView41"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewDoubleZero"
+                app:layout_constraintEnd_toStartOf="@+id/backspace"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView40"
-                app:layout_constraintTop_toTopOf="@+id/textView40" />
+                app:layout_constraintStart_toEndOf="@+id/textViewDoubleZero"
+                app:layout_constraintTop_toTopOf="@+id/textViewDoubleZero" />
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/textViewDoubleZero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00"
@@ -219,21 +219,32 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView39"
+                app:layout_constraintEnd_toStartOf="@+id/textViewZero"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView36" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewSeven" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/textView41"
+                android:id="@+id/backspace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_backspace"
-                app:layout_constraintBottom_toBottomOf="@+id/textView39"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewZero"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView39"
-                app:layout_constraintTop_toTopOf="@+id/textView39" />
+                app:layout_constraintStart_toEndOf="@+id/textViewZero"
+                app:layout_constraintTop_toTopOf="@+id/textViewZero" />
+
+            <ProgressBar
+                android:id="@+id/paymentProgressbar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

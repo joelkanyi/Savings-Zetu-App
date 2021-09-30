@@ -7,6 +7,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.data.AuthRepository
 import com.kanyideveloper.savingszetu.data.DefaultAuthRepository
+import com.kanyideveloper.savingszetu.data.DefaultMainRepository
+import com.kanyideveloper.savingszetu.data.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +43,11 @@ object AppModule {
     @Provides
     fun providesAuthRepository() : AuthRepository {
         return DefaultAuthRepository()
+    }
+
+    @Singleton
+    @Provides
+    fun providesMainRepository() : MainRepository {
+        return DefaultMainRepository()
     }
 }
