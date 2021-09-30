@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
 import com.kanyideveloper.savingszetu.utils.EventObserver
@@ -20,6 +24,7 @@ class PayFragment : Fragment() {
 
     private lateinit var binding: FragmentPayBinding
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +32,11 @@ class PayFragment : Fragment() {
     ): View? {
         binding = FragmentPayBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        navController = findNavController()
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.payToolbar.setupWithNavController(navController, appBarConfiguration)
 
         subscribeToObservers()
 
@@ -83,7 +93,7 @@ class PayFragment : Fragment() {
         }
 
         binding.backspace.setOnClickListener {
-
+            viewModel.deleteChars()
         }
 
         viewModel.currentNumber.observe(viewLifecycleOwner, Observer {

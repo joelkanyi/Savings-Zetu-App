@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -33,5 +34,30 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.apply {
             setupWithNavController(navController)
         }
+
+
+        //hiding bottom navigation for splash screen  & onboading
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.payFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
+                R.id.notificationsFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
+                R.id.paySuccessFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
+                R.id.notificationsFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
+                R.id.adminFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
+                else -> binding.bottomNavigationView.isVisible =
+                    destination.id != R.id.statisticsFragment
+            }
+        }
+
     }
 }

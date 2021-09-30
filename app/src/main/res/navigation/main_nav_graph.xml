@@ -37,8 +37,8 @@
     <fragment
         android:id="@+id/payFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PayFragment"
-        android:label="fragment_pay"
-        tools:layout="@layout/fragment_pay" >
+        android:label="Payment"
+        tools:layout="@layout/fragment_pay">
         <action
             android:id="@+id/action_payFragment_to_paySuccessFragment"
             app:destination="@id/paySuccessFragment" />
