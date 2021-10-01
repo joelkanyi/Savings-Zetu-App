@@ -1,6 +1,7 @@
 package com.kanyideveloper.savingszetu.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,13 @@ class MainViewModel @Inject constructor(
 
     private val _saveTransactionStatus = MutableLiveData<Event<Resource<Any>>>()
     val saveTransactionStatus: LiveData<Event<Resource<Any>>> = _saveTransactionStatus
+
+    private val _curImageUri = MutableLiveData<Uri>()
+    val curImageUri: LiveData<Uri> = _curImageUri
+
+    fun setCurImageUri(uri: Uri){
+        _curImageUri.postValue(uri)
+    }
 
     private val _currentNumber = MutableLiveData<String>("0")
     val currentNumber: LiveData<String> = _currentNumber
@@ -73,5 +81,9 @@ class MainViewModel @Inject constructor(
                 _currentNumber.postValue(_currentNumber.value!!.dropLast(1))
             }
         }
+    }
+
+    fun uploadProfileImage(currentImageUri: Uri?) {
+
     }
 }
