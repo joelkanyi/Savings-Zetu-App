@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,7 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.kanyideveloper.savingszetu.R
+import com.kanyideveloper.savingszetu.utils.MpesaListener
 import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
 import com.kanyideveloper.savingszetu.utils.EventObserver
 import com.kanyideveloper.savingszetu.utils.showSnackbar
@@ -20,18 +21,24 @@ import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PayFragment : Fragment() {
+class PayFragment : Fragment(), MpesaListener {
 
     private lateinit var binding: FragmentPayBinding
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
 
+    companion object {
+        lateinit var mpesaListener: MpesaListener
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPayBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        mpesaListener = this
 
         navController = findNavController()
 
@@ -41,11 +48,12 @@ class PayFragment : Fragment() {
         subscribeToObservers()
 
         binding.button.setOnClickListener {
-            viewModel.saveTransaction(
+            /*viewModel.saveTransaction(
                 "JK3278944BO",
                 "100000",
                 "Joel Kanyi"
-            )
+            )*/
+            viewModel.pay("0706003891","1")
         }
 
         binding.textViewOne.setOnClickListener {
@@ -114,7 +122,29 @@ class PayFragment : Fragment() {
             }
         ){
             binding.paymentProgressbar.isVisible = false
-            showSnackbar("Payment Successful")
+            showSnackbar("PaymentRepository Successful")
         })
+    }
+
+    override fun sendSuccessful(amount: String, phone: String, date: String, receipt: String) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(
+                context, "PaymentRepository Successful\n" +
+                        "Receipt: $receipt\n" +
+                        "Date: $date\n" +
+                        "Phone: $phone\n" +
+                        "Amount: $amount", Toast.LENGTH_LONG
+            ).show()
+
+        }
+    }
+
+    override fun sendFailed(cause: String) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(
+                context, "PaymentRepository Failed\n" +
+                        "Reason: $cause", Toast.LENGTH_LONG
+            ).show()
+        }
     }
 }

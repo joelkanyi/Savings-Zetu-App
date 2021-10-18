@@ -1,6 +1,5 @@
 package com.kanyideveloper.savingszetu.viewmodel
 
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository,
-    private val context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
@@ -46,6 +44,14 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) {
             val result = mainRepository.saveTransactionToDB(code, amount, sender)
             _saveTransactionStatus.postValue(Event(result))
+        }
+    }
+
+    fun pay(
+        phone: String, amount: String
+    ) {
+        viewModelScope.launch(dispatcher) {
+            mainRepository.pay(phone,amount)
         }
     }
 
