@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -127,8 +128,21 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:$circular_imageview_version"
 
     // debugImplementation because LeakCanary should only run in debug builds.
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     //Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //SweetAlert
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+    // ImageCrop
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    //For M-Pesa Callback
+    implementation 'com.google.firebase:firebase-functions:19.0.2'
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
+    implementation 'com.google.firebase:firebase-database:19.3.1'
+    implementation 'com.google.firebase:firebase-core:17.4.3'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

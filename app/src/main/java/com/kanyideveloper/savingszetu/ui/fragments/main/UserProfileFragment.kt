@@ -1,32 +1,68 @@
 package com.kanyideveloper.savingszetu.ui.fragments.main
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.RequestManager
+import com.google.firebase.auth.FirebaseAuth
 import com.kanyideveloper.savingszetu.R
+import com.kanyideveloper.savingszetu.databinding.FragmentUserProfileBinding
+import com.kanyideveloper.savingszetu.ui.activities.AuthActivity
+import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UserProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class UserProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    @Inject
+    lateinit var glide: RequestManager
+
+    private lateinit var binding: FragmentUserProfileBinding
+
+    private val viewModel: MainViewModel by viewModels()
+    private lateinit var navController: NavController
+
+    private lateinit var cropContent: ActivityResultLauncher<String>
+
+    private val cropActivityResultContract = object :
+        ActivityResultContract<String, Uri?>() {
+        override fun createIntent(context: Context, input: String?): Intent {
+            return CropImage.activity()
+                .setAspectRatio(16,9)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .getIntent(requireContext())
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return CropImage.getActivityResult(intent).uri
+        }
+
+    }
+
+    private var currentImageUri: Uri? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        cropContent = registerForActivityResult(cropActivityResultContract){
+            it?.let {
+                viewModel.setCurImageUri(uri = it)
+            }
         }
     }
 
@@ -34,27 +70,49 @@ class UserProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+        binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        navController = findNavController()
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbarProfile.setupWithNavController(navController, appBarConfiguration)
+
+
+        binding.textViewLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
+            requireActivity().finish()
+        }
+
+        binding.selectImage.setOnClickListener {
+            cropContent.launch("image/*")
+        }
+
+        binding.button5.setOnClickListener {
+            binding.selectImage.isVisible = true
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun subscribeToObservers(){
+        viewModel.curImageUri.observe(viewLifecycleOwner, Observer {
+            currentImageUri = it
+            glide.load(currentImageUri).into(binding.imageViewProfile)
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.save_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (R.id.saveProfile == item.itemId){
+            viewModel.uploadProfileImage(currentImageUri)
+            true
+        }else
+            super.onOptionsItemSelected(item)
     }
 }

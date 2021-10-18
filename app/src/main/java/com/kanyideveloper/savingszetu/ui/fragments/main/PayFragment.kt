@@ -5,56 +5,146 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kanyideveloper.savingszetu.R
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.kanyideveloper.savingszetu.utils.MpesaListener
+import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
+import com.kanyideveloper.savingszetu.utils.EventObserver
+import com.kanyideveloper.savingszetu.utils.showSnackbar
+import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class PayFragment : Fragment(), MpesaListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PayFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentPayBinding
+    private val viewModel: MainViewModel by viewModels()
+    private lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    companion object {
+        lateinit var mpesaListener: MpesaListener
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pay, container, false)
+    ): View {
+        binding = FragmentPayBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        mpesaListener = this
+
+        navController = findNavController()
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.payToolbar.setupWithNavController(navController, appBarConfiguration)
+
+        subscribeToObservers()
+
+        binding.button.setOnClickListener {
+            /*viewModel.saveTransaction(
+                "JK3278944BO",
+                "100000",
+                "Joel Kanyi"
+            )*/
+            viewModel.pay("0706003891","1")
+        }
+
+        binding.textViewOne.setOnClickListener {
+            viewModel.keyClicked("1")
+        }
+
+        binding.textViewTwo.setOnClickListener {
+            viewModel.keyClicked("2")
+        }
+
+        binding.textViewThree.setOnClickListener {
+            viewModel.keyClicked("3")
+        }
+
+        binding.textViewFour.setOnClickListener {
+            viewModel.keyClicked("4")
+        }
+
+        binding.textViewFive.setOnClickListener {
+            viewModel.keyClicked("5")
+        }
+
+        binding.textViewSix.setOnClickListener {
+            viewModel.keyClicked("6")
+        }
+
+        binding.textViewSeven.setOnClickListener {
+            viewModel.keyClicked("7")
+        }
+
+        binding.textViewEight.setOnClickListener {
+            viewModel.keyClicked("8")
+        }
+
+        binding.textViewNine.setOnClickListener {
+            viewModel.keyClicked("9")
+        }
+
+        binding.textViewZero.setOnClickListener {
+            viewModel.keyClicked("0")
+        }
+
+        binding.textViewDoubleZero.setOnClickListener {
+            viewModel.keyClicked("00")
+        }
+
+        binding.backspace.setOnClickListener {
+            viewModel.deleteChars()
+        }
+
+        viewModel.currentNumber.observe(viewLifecycleOwner, Observer {
+            binding.textViewAmount.text = it
+        })
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PayFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun subscribeToObservers(){
+        viewModel.saveTransactionStatus.observe(viewLifecycleOwner, EventObserver(
+            onError = {
+                binding.paymentProgressbar.isVisible = false
+                showSnackbar(it)
+            },
+            onLoading = {
+                binding.paymentProgressbar.isVisible = true
             }
+        ){
+            binding.paymentProgressbar.isVisible = false
+            showSnackbar("PaymentRepository Successful")
+        })
+    }
+
+    override fun sendSuccessful(amount: String, phone: String, date: String, receipt: String) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(
+                context, "PaymentRepository Successful\n" +
+                        "Receipt: $receipt\n" +
+                        "Date: $date\n" +
+                        "Phone: $phone\n" +
+                        "Amount: $amount", Toast.LENGTH_LONG
+            ).show()
+
+        }
+    }
+
+    override fun sendFailed(cause: String) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(
+                context, "PaymentRepository Failed\n" +
+                        "Reason: $cause", Toast.LENGTH_LONG
+            ).show()
+        }
     }
 }

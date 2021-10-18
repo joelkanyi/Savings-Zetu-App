@@ -9,17 +9,40 @@
         android:id="@+id/homeFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_payFragment"
+            app:destination="@id/payFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HistoryFragment"
-        android:label="fragment_history"
+        android:label="History"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/payFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PayFragment"
-        android:label="fragment_pay"
-        tools:layout="@layout/fragment_pay" />
+        android:label="Payment"
+        tools:layout="@layout/fragment_pay">
+        <action
+            android:id="@+id/action_payFragment_to_paySuccessFragment"
+            app:destination="@id/paySuccessFragment" />
+    </fragment>
     <fragment
         android:id="@+id/paySuccessFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PaySuccessFragment"
@@ -30,4 +53,19 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
 </navigation>
