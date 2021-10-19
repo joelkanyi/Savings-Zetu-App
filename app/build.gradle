@@ -141,8 +141,8 @@ dependencies {
 
     //For M-Pesa Callback
     implementation 'com.google.firebase:firebase-functions:19.0.2'
-    implementation 'com.google.firebase:firebase-messaging:20.2.1'
-    implementation 'com.google.firebase:firebase-database:19.3.1'
+    implementation 'com.google.firebase:firebase-messaging:20.2.0'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.google.code.gson:gson:2.8.6'
 }

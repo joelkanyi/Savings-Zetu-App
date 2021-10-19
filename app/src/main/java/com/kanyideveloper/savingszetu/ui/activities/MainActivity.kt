@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.databinding.ActivityMainBinding
+import com.kanyideveloper.savingszetu.utils.MpesaListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,11 +23,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentMain) as NavHostFragment
@@ -60,4 +66,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }

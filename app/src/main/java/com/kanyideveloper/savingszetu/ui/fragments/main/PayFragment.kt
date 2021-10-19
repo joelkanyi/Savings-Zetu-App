@@ -13,12 +13,22 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.androidstudy.daraja.Daraja
+import com.androidstudy.daraja.DarajaListener
+import com.androidstudy.daraja.model.AccessToken
+import com.androidstudy.daraja.model.LNMExpress
+import com.androidstudy.daraja.model.LNMResult
+import com.androidstudy.daraja.util.Env
+import com.androidstudy.daraja.util.TransactionType
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kanyideveloper.savingszetu.utils.MpesaListener
 import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
 import com.kanyideveloper.savingszetu.utils.EventObserver
+import com.kanyideveloper.savingszetu.utils.TransactionConstants
 import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PayFragment : Fragment(), MpesaListener {
@@ -53,7 +63,9 @@ class PayFragment : Fragment(), MpesaListener {
                 "100000",
                 "Joel Kanyi"
             )*/
-            viewModel.pay("0706003891","1")
+            viewModel.currentNumber.observe(viewLifecycleOwner, Observer { amount ->
+                viewModel.pay("0706003891", amount)
+            })
         }
 
         binding.textViewOne.setOnClickListener {
@@ -129,7 +141,7 @@ class PayFragment : Fragment(), MpesaListener {
     override fun sendSuccessful(amount: String, phone: String, date: String, receipt: String) {
         requireActivity().runOnUiThread {
             Toast.makeText(
-                context, "PaymentRepository Successful\n" +
+                requireContext(), "PaymentRepository Successful\n" +
                         "Receipt: $receipt\n" +
                         "Date: $date\n" +
                         "Phone: $phone\n" +
@@ -142,7 +154,7 @@ class PayFragment : Fragment(), MpesaListener {
     override fun sendFailed(cause: String) {
         requireActivity().runOnUiThread {
             Toast.makeText(
-                context, "PaymentRepository Failed\n" +
+                requireContext(), "PaymentRepository Failed\n" +
                         "Reason: $cause", Toast.LENGTH_LONG
             ).show()
         }

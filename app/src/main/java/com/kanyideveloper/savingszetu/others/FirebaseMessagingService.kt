@@ -1,5 +1,6 @@
 package com.kanyideveloper.savingszetu.others
 
+import android.util.Log
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -8,6 +9,7 @@ import com.kanyideveloper.savingszetu.model.MpesaTransaction
 import com.kanyideveloper.savingszetu.ui.fragments.main.PayFragment
 import timber.log.Timber
 
+private const val TAG = "FirebaseMessaging"
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 
