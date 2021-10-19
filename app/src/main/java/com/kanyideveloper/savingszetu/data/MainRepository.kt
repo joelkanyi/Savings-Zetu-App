@@ -10,5 +10,5 @@ interface MainRepository {
 
     suspend fun uploadProfilePicture(uri: Uri): Resource<Any>
 
-    suspend fun pay(phone: String, amount: String)
+    suspend fun pay(phone: String, amount: String): Resource<Any>
 }

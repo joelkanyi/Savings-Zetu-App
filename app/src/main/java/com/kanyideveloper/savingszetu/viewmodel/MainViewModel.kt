@@ -25,6 +25,9 @@ class MainViewModel @Inject constructor(
     private val _saveTransactionStatus = MutableLiveData<Event<Resource<Any>>>()
     val saveTransactionStatus: LiveData<Event<Resource<Any>>> = _saveTransactionStatus
 
+    private val _saveSendTransactionStatus = MutableLiveData<Event<Resource<Any>>>()
+    val saveSendTransactionStatus: LiveData<Event<Resource<Any>>> = _saveSendTransactionStatus
+
     private val _curImageUri = MutableLiveData<Uri>()
     val curImageUri: LiveData<Uri> = _curImageUri
 
@@ -51,7 +54,8 @@ class MainViewModel @Inject constructor(
         phone: String, amount: String
     ) {
         viewModelScope.launch(dispatcher) {
-            mainRepository.pay(phone,amount)
+            val result = mainRepository.pay(phone,amount)
+            _saveSendTransactionStatus.postValue(Event(result))
         }
     }
 
