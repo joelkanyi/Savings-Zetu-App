@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.ktx.storage
 import com.kanyideveloper.savingszetu.model.Transaction
+import com.kanyideveloper.savingszetu.utils.MpesaListener
 import com.kanyideveloper.savingszetu.utils.Resource
 import com.kanyideveloper.savingszetu.utils.TransactionConstants
 import com.kanyideveloper.savingszetu.utils.safeCall
@@ -29,18 +30,47 @@ class DefaultMainRepository : MainRepository {
     private val databaseReference = FirebaseDatabase.getInstance().reference
     private val firebaseStorage = Firebase.storage
 
-    private val daraja = Daraja.with(
-        TransactionConstants.CONSUMER_KEY, TransactionConstants.CONSUMER_SECRET, Env.SANDBOX,
-        object : DarajaListener<AccessToken> {
-            override fun onResult(result: AccessToken) {
-                Timber.d("Access Token: ${result.access_token}")
+    private val daraja: Daraja = Daraja.with(
+    TransactionConstants.CONSUMER_KEY, TransactionConstants.CONSUMER_SECRET, Env.SANDBOX,
+    object : DarajaListener<AccessToken> {
+        override fun onResult(result: AccessToken) {
+            Timber.d("Access Token: ${result.access_token}")
+        }
+
+        override fun onError(error: String?) {
+            Timber.d("Error: $error")
+        }
+
+    })
+
+    override suspend fun pay(phone: String, amount: String){
+        val lnmExpress = LNMExpress(
+            "174379",
+            "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
+            TransactionType.CustomerPayBillOnline,
+            amount,
+            phone,
+            "174379",
+            phone,
+            "https://us-central1-savingszetu.cloudfunctions.net/api/myCallbackUrl",
+            "001ABC",
+            "Goods PaymentRepository"
+        )
+
+        daraja.requestMPESAExpress(lnmExpress, object : DarajaListener<LNMResult> {
+            override fun onResult(result: LNMResult) {
+                Timber.d(result.ResponseDescription.toString())
+                FirebaseMessaging.getInstance().subscribeToTopic(result.CheckoutRequestID.toString())
+                //Resource.Success(result.ResponseDescription)
             }
 
             override fun onError(error: String?) {
-                Timber.d("Error: $error")
+                Timber.d(error.toString())
+                //Resource.Error(error.toString())
             }
-
         })
+    }
+
 
     override suspend fun saveTransactionToDB(
         code: String,
@@ -63,35 +93,6 @@ class DefaultMainRepository : MainRepository {
                 Resource.Success(Any())
             }
         }
-    }
-
-    override suspend fun pay(phone: String, amount: String){
-        val lnmExpress = LNMExpress(
-            "174379",
-            "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
-            TransactionType.CustomerPayBillOnline,
-            amount,
-            phone,
-            "174379",
-            phone,
-            "https://us-central1-savingszetu.cloudfunctions.net/api/myCallbackUrl",
-            "001ABC",
-            "Goods PaymentRepository"
-        )
-
-            daraja.requestMPESAExpress(lnmExpress, object : DarajaListener<LNMResult> {
-                override fun onResult(result: LNMResult) {
-                    Timber.d(result.ResponseDescription.toString())
-                    FirebaseMessaging.getInstance()
-                        .subscribeToTopic(result.CheckoutRequestID.toString())
-                    //Resource.Success(result.ResponseDescription)
-                }
-
-                override fun onError(error: String?) {
-                    Timber.d(error.toString())
-                    //Resource.Error(error.toString())
-                }
-            })
     }
 
     override suspend fun uploadProfilePicture(uri: Uri): Resource<Any> {
