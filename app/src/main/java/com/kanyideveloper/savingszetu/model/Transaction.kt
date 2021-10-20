@@ -6,4 +6,5 @@ data class Transaction(
     val transactionAmount: String? = null,
     val transactionDate: String? = null,
     val transactionSender: String? = null,
+    val userUID: String? = null
 )

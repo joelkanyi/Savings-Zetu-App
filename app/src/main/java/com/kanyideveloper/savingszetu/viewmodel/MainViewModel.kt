@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kanyideveloper.savingszetu.data.MainRepository
+import com.kanyideveloper.savingszetu.model.Transaction
+import com.kanyideveloper.savingszetu.model.UserPayment
 import com.kanyideveloper.savingszetu.utils.Event
 import com.kanyideveloper.savingszetu.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
@@ -27,6 +30,34 @@ class MainViewModel @Inject constructor(
 
     private val _saveSendTransactionStatus = MutableLiveData<Event<Resource<Any>>>()
     val saveSendTransactionStatus: LiveData<Event<Resource<Any>>> = _saveSendTransactionStatus
+
+    private var _userTransactions =  MutableLiveData<Event<Resource<List<Transaction>>>>()
+    val userTransactions: LiveData<Event<Resource<List<Transaction>>>> = _userTransactions
+
+    private var _userCurrentTransactionDetails =  MutableLiveData<Event<Resource<UserPayment>>>()
+    val userCurrentTransactionDetails: LiveData<Event<Resource<UserPayment>>> = _userCurrentTransactionDetails
+
+
+    init {
+        getUserTransactions()
+        getUserCurrentPayments()
+    }
+
+    private fun getUserTransactions(){
+        _userTransactions.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.getUserTransactions()
+            _userTransactions.postValue(Event(result))
+        }
+    }
+
+    private fun getUserCurrentPayments(){
+        _userCurrentTransactionDetails.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.getUserCurrentPayment()
+            _userCurrentTransactionDetails.postValue(Event(result))
+        }
+    }
 
     private val _curImageUri = MutableLiveData<Uri>()
     val curImageUri: LiveData<Uri> = _curImageUri
