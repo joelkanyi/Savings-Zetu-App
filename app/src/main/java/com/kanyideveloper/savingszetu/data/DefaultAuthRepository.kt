@@ -4,6 +4,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.kanyideveloper.savingszetu.model.User
+import com.kanyideveloper.savingszetu.model.UserPayment
 import com.kanyideveloper.savingszetu.utils.Resource
 import com.kanyideveloper.savingszetu.utils.safeCall
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,8 @@ class DefaultAuthRepository : AuthRepository {
                 val uid = result.user?.uid!!
                 val user = User(uid,email,userName,regNo)
                 databaseReference.child(uid).setValue(user).await()
+                val transaction = UserPayment("0","0","0")
+                databaseReference.child(uid).child("current_payment_details").setValue(transaction)
                 Resource.Success(result)
             }
         }

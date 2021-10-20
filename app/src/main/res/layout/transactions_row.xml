@@ -15,7 +15,7 @@
 
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/transDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/transAmount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

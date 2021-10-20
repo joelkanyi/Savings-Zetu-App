@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.ktx.storage
 import com.kanyideveloper.savingszetu.model.Transaction
+import com.kanyideveloper.savingszetu.model.UserPayment
 import com.kanyideveloper.savingszetu.utils.Resource
 import com.kanyideveloper.savingszetu.utils.TransactionConstants
 import com.kanyideveloper.savingszetu.utils.safeCall
@@ -22,6 +23,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DefaultMainRepository : MainRepository {
 
@@ -77,6 +79,40 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
+    override suspend fun getUserTransactions(): Resource<List<Transaction>> {
+        return withContext(Dispatchers.IO){
+            val uid = firebaseAuth.uid!!
+            val transactsList = ArrayList<Transaction>()
+            safeCall {
+                val transactions = databaseReference.child("transactions")
+                val transactionLists = transactions.child(uid).get().await()
+                for (i in transactionLists.children){
+                    val result = i.getValue(Transaction::class.java)
+                    transactsList.add(result!!)
+                }
+                Resource.Success(transactsList)
+            }
+        }
+    }
+
+    override suspend fun getAdminTransactions(): Resource<List<Transaction>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserCurrentPayment(): Resource<UserPayment> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                val currentPaymentRecords = databaseReference.child("users").child(uid).child("current_payment_details")
+
+                val details = currentPaymentRecords.get().await().getValue(UserPayment::class.java) ?: throw IllegalArgumentException()
+
+                Resource.Success(details)
+
+            }
+        }
+    }
+
 
     override suspend fun saveTransactionToDB(
         code: String,
@@ -92,7 +128,8 @@ class DefaultMainRepository : MainRepository {
                     transactionCode = code,
                     transactionAmount = amount,
                     transactionDate = System.currentTimeMillis().toString(),
-                    transactionSender = sender
+                    transactionSender = sender,
+                    uid
                 )
                 databaseReference.child("transactions").child(uid).child(transactionId)
                     .setValue(transaction).await()
