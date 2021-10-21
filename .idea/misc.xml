@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/edittext_background.xml" value="0.18981481481481483" />
+        <entry key="app/src/main/res/drawable/ic_backspace.xml" value="0.2212962962962963" />
+        <entry key="app/src/main/res/drawable/ic_chevron_right.xml" value="0.2212962962962963" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.15104166666666666" />
         <entry key="app/src/main/res/drawable/ic_notification.xml" value="0.1398148148148148" />
         <entry key="app/src/main/res/drawable/ic_rectangle.xml" value="0.24814814814814815" />
@@ -11,7 +13,8 @@
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_all_transaction.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_auths_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_defaulters.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.26197916666666665" />
@@ -27,7 +30,7 @@
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/name_row.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/notification_row.xml" value="0.26197916666666665" />
-        <entry key="app/src/main/res/layout/payments_done_row.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/payments_done_row.xml" value="0.5" />
         <entry key="app/src/main/res/layout/transactions_row.xml" value="0.14375" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/menu/history_menu.xml" value="0.22" />

@@ -49,7 +49,7 @@ class DefaultMainRepository : MainRepository {
         })
 
     override suspend fun pay(phone: String, amount: String): Resource<Any> {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Main) {
 
             safeCall {
                 val lnmExpress = LNMExpress(
@@ -117,10 +117,25 @@ class DefaultMainRepository : MainRepository {
 
     override suspend fun getFourAdminTransactions(): Resource<List<Transaction>> {
         return withContext(Dispatchers.IO) {
-            val uid = firebaseAuth.uid!!
             val transactsList = ArrayList<Transaction>()
             safeCall {
-                val transactions = databaseReference.child("transactions").limitToFirst(4).get().await()
+                val uid = firebaseAuth.uid!!
+                val transactions = databaseReference.child("transactions").child(uid).limitToFirst(4).get().await()
+                for (i in transactions.children) {
+                    val result = i.getValue(Transaction::class.java)
+                    transactsList.add(result!!)
+                }
+                Resource.Success(transactsList)
+            }
+        }
+    }
+
+    override suspend fun getAllAdminsTransactions(): Resource<List<Transaction>> {
+        return withContext(Dispatchers.IO) {
+            val transactsList = ArrayList<Transaction>()
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                val transactions = databaseReference.child("transactions").child(uid).get().await()
                 for (i in transactions.children) {
                     val result = i.getValue(Transaction::class.java)
                     transactsList.add(result!!)
@@ -195,7 +210,8 @@ class DefaultMainRepository : MainRepository {
     override suspend fun saveTransactionToDB(
         code: String,
         amount: String,
-        sender: String
+        sender: String,
+        senderName: String
     ): Resource<Any> {
         return withContext(Dispatchers.IO) {
             safeCall {
@@ -207,7 +223,8 @@ class DefaultMainRepository : MainRepository {
                     transactionAmount = amount,
                     transactionDate = System.currentTimeMillis(),
                     transactionSender = sender,
-                    uid
+                    uid,
+                    senderName
                 )
                 databaseReference.child("transactions").child(uid).child(transactionId)
                     .setValue(transaction).await()

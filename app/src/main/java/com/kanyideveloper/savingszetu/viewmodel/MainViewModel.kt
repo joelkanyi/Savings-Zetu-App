@@ -44,6 +44,9 @@ class MainViewModel @Inject constructor(
     private var _adminFourTransactions = MutableLiveData<Event<Resource<List<Transaction>>>>()
     val adminFourTransactions: LiveData<Event<Resource<List<Transaction>>>> = _adminFourTransactions
 
+    private var _adminTransactions = MutableLiveData<Event<Resource<List<Transaction>>>>()
+    val adminTransactions: LiveData<Event<Resource<List<Transaction>>>> = _adminTransactions
+
     private var _defaulter = MutableLiveData<Event<Resource<List<User>>>>()
     val defaulter: LiveData<Event<Resource<List<User>>>> = _defaulter
 
@@ -66,6 +69,15 @@ class MainViewModel @Inject constructor(
         getDefaulter()
         getThosePayed()
         getAdminUserTransactions()
+        getAllAdminsTransactions()
+    }
+
+    private fun getAllAdminsTransactions(){
+        _adminTransactions.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.getAllAdminsTransactions()
+            _adminTransactions.postValue(Event(result))
+        }
     }
 
     private fun getDefaulter() {
@@ -131,25 +143,18 @@ class MainViewModel @Inject constructor(
         _curImageUri.postValue(uri)
     }
 
-
     private val _currentNumber = MutableLiveData<String>("0")
     val currentNumber: LiveData<String> = _currentNumber
 
-    fun saveTransaction(
-        code: String,
-        amount: String,
-        sender: String
-    ) {
+    fun saveTransaction(code: String, amount: String, sender: String, senderName: String) {
         _saveTransactionStatus.postValue(Event(Resource.Loading()))
         viewModelScope.launch(dispatcher) {
-            val result = mainRepository.saveTransactionToDB(code, amount, sender)
+            val result = mainRepository.saveTransactionToDB(code, amount, sender, senderName)
             _saveTransactionStatus.postValue(Event(result))
         }
     }
 
-    fun pay(
-        phone: String, amount: String
-    ) {
+    fun pay(phone: String, amount: String) {
         viewModelScope.launch(dispatcher) {
             val result = mainRepository.pay(phone, amount)
             _saveSendTransactionStatus.postValue(Event(result))

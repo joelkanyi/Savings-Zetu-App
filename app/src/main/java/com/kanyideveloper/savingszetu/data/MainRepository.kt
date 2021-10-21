@@ -8,7 +8,7 @@ import com.kanyideveloper.savingszetu.utils.Resource
 
 
 interface MainRepository {
-    suspend fun saveTransactionToDB(code: String, amount: String, sender: String): Resource<Any>
+    suspend fun saveTransactionToDB(code: String, amount: String, sender: String, senderName: String): Resource<Any>
 
     suspend fun uploadProfilePicture(uri: Uri): Resource<Any>
 
@@ -27,4 +27,6 @@ interface MainRepository {
     suspend fun getThoseWhoHavePayed(): Resource<List<User>>
 
     suspend fun getFourAdminTransactions(): Resource<List<Transaction>>
+
+    suspend fun getAllAdminsTransactions(): Resource<List<Transaction>>
 }

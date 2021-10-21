@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Balance"
+            android:text="Total Balance"
+            android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adminToolbar" />
@@ -38,12 +39,12 @@
             android:id="@+id/textViewTotalBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:drawableStart="@drawable/ic_ksh_"
             android:drawableTint="@color/dark_gray"
             android:text="20,000"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView58"
             app:layout_constraintTop_toBottomOf="@+id/textView58" />
@@ -108,26 +109,29 @@
             app:layout_constraintTop_toBottomOf="@+id/chart" />
 
         <ImageView
-            android:id="@+id/imageView19"
+            android:id="@+id/imageViewGoToAllTransactions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_chevron_right"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chart" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/allPaymentRecyclerView"
-            android:layout_width="409dp"
-            android:layout_height="230dp"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView19"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewGoToAllTransactions"
             tools:listitem="@layout/payments_done_row" />
 
         <ProgressBar

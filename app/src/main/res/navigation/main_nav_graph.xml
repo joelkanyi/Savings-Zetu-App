@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_adminFragment_to_defaultersFragment"
             app:destination="@id/defaultersFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_allTransactionFragment"
+            app:destination="@id/allTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
@@ -85,4 +88,9 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PayersFragment"
         android:label="Payed Members"
         tools:layout="@layout/fragment_payers" />
+    <fragment
+        android:id="@+id/allTransactionFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AllTransactionFragment"
+        android:label="All Payments"
+        tools:layout="@layout/fragment_all_transaction" />
 </navigation>

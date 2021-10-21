@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="5sp"
-    app:cardElevation="5dp">
+    android:layout_margin="5dp"
+    app:cardCornerRadius="8sp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textViewAdmDName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="Joel Kanyi"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="20sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,9 +29,11 @@
             android:id="@+id/textViewAdmDAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Sh.50.00"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +47,7 @@
             android:layout_marginEnd="8dp"
             android:text="08 September, 2021 | 15:37"
             android:textColor="@color/dark_gray"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -21,6 +21,9 @@ import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
 import com.kanyideveloper.savingszetu.utils.*
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -30,6 +33,7 @@ class PayFragment : Fragment(), MpesaListener {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var phone: String
+    private lateinit var name: String
 
     private lateinit var successAlert: SweetAlertDialog
     private lateinit var loadingAlert: SweetAlertDialog
@@ -205,16 +209,20 @@ class PayFragment : Fragment(), MpesaListener {
         viewModel.userProfile.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 showSnackbar(it)
+                loadingAlert.dismiss()
             },
             onLoading = {
+                loadingAlert.show()
             }
         ) { profile ->
+            loadingAlert.dismissWithAnimation()
             phone = profile.userPhoneNum!!
+            name = profile.username!!
         })
     }
 
     override fun sendSuccessful(amount: String, phone: String, date: String, receipt: String) {
-        requireActivity().runOnUiThread {
+        CoroutineScope(Dispatchers.Main).launch {
             Toast.makeText(
                 requireContext(), "PaymentRepository Successful\n" +
                         "Receipt: $receipt\n" +
@@ -222,14 +230,15 @@ class PayFragment : Fragment(), MpesaListener {
                         "Phone: $phone\n" +
                         "Amount: $amount", Toast.LENGTH_LONG
             ).show()
-            viewModel.saveTransaction(receipt, amount, phone)
+            viewModel.saveTransaction(receipt, amount, phone, name)
             sentAlertDialog.dismissWithAnimation()
             successAlert.show()
         }
+
     }
 
     override fun sendFailed(cause: String) {
-        requireActivity().runOnUiThread {
+        CoroutineScope(Dispatchers.Main).launch {
             Toast.makeText(
                 requireContext(), "PaymentRepository Failed\n" +
                         "Reason: $cause", Toast.LENGTH_LONG
