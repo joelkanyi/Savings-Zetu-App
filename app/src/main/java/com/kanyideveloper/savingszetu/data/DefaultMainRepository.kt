@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.ktx.storage
 import com.kanyideveloper.savingszetu.model.Transaction
+import com.kanyideveloper.savingszetu.model.User
 import com.kanyideveloper.savingszetu.model.UserPayment
 import com.kanyideveloper.savingszetu.utils.Resource
 import com.kanyideveloper.savingszetu.utils.TransactionConstants
@@ -80,13 +81,13 @@ class DefaultMainRepository : MainRepository {
     }
 
     override suspend fun getUserTransactions(): Resource<List<Transaction>> {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             val uid = firebaseAuth.uid!!
             val transactsList = ArrayList<Transaction>()
             safeCall {
                 val transactions = databaseReference.child("transactions")
                 val transactionLists = transactions.child(uid).get().await()
-                for (i in transactionLists.children){
+                for (i in transactionLists.children) {
                     val result = i.getValue(Transaction::class.java)
                     transactsList.add(result!!)
                 }
@@ -95,17 +96,47 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
-    override suspend fun getAdminTransactions(): Resource<List<Transaction>> {
-        TODO("Not yet implemented")
+    override suspend fun getFourCurrentUserTransactions(): Resource<List<Transaction>> {
+        return withContext(Dispatchers.IO) {
+            val uid = firebaseAuth.uid!!
+            val transactsList = ArrayList<Transaction>()
+            safeCall {
+                val transactions = databaseReference.child("transactions")
+                val transactionLists = transactions.child(uid).limitToFirst(4).get().await()
+                for (i in transactionLists.children) {
+                    val result = i.getValue(Transaction::class.java)
+                    transactsList.add(result!!)
+                }
+                Resource.Success(transactsList)
+            }
+        }
     }
 
+    override suspend fun getFourAdminTransactions(): Resource<List<Transaction>> {
+        return withContext(Dispatchers.IO) {
+            val uid = firebaseAuth.uid!!
+            val transactsList = ArrayList<Transaction>()
+            safeCall {
+                val transactions = databaseReference.child("transactions").limitToFirst(4).get().await()
+                for (i in transactions.children) {
+                    val result = i.getValue(Transaction::class.java)
+                    transactsList.add(result!!)
+                }
+                Resource.Success(transactsList)
+            }
+        }
+    }
+
+
     override suspend fun getUserCurrentPayment(): Resource<UserPayment> {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             safeCall {
                 val uid = firebaseAuth.uid!!
-                val currentPaymentRecords = databaseReference.child("users").child(uid).child("current_payment_details")
+                val currentPaymentRecords =
+                    databaseReference.child("users").child(uid).child("current_payment_details")
 
-                val details = currentPaymentRecords.get().await().getValue(UserPayment::class.java) ?: throw IllegalArgumentException()
+                val details = currentPaymentRecords.get().await().getValue(UserPayment::class.java)
+                    ?: throw IllegalArgumentException()
 
                 Resource.Success(details)
 
@@ -113,6 +144,50 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
+    override suspend fun getCurrentUserProfile(): Resource<User> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                val currentUserDetails = databaseReference.child("users").child(uid).get().await()
+                    .getValue(User::class.java) ?: throw IllegalArgumentException()
+                Resource.Success(currentUserDetails)
+            }
+        }
+    }
+
+    override suspend fun getDefaulters(): Resource<List<User>> {
+        return withContext(Dispatchers.IO) {
+            val defaultersList = ArrayList<User>()
+            safeCall {
+                val defaulters = databaseReference.child("users").get().await()
+
+                for (i in defaulters.children) {
+                    val result = i.getValue(User::class.java)
+                    if(result?.current_payment_details?.total_payed?.toDouble()!! <= 0.0){
+                        defaultersList.add(result)
+                    }
+                }
+                Resource.Success(defaultersList)
+            }
+        }
+    }
+
+    override suspend fun getThoseWhoHavePayed(): Resource<List<User>> {
+        return withContext(Dispatchers.IO) {
+            val payersList = ArrayList<User>()
+            safeCall {
+                val payers = databaseReference.child("users").get().await()
+
+                for (i in payers.children) {
+                    val result = i.getValue(User::class.java)
+                    if(result?.current_payment_details?.total_payed?.toDouble()!! >= 1){
+                        payersList.add(result)
+                    }
+                }
+                Resource.Success(payersList)
+            }
+        }
+    }
 
     override suspend fun saveTransactionToDB(
         code: String,
@@ -127,7 +202,7 @@ class DefaultMainRepository : MainRepository {
                     transactionId = transactionId,
                     transactionCode = code,
                     transactionAmount = amount,
-                    transactionDate = System.currentTimeMillis().toString(),
+                    transactionDate = System.currentTimeMillis(),
                     transactionSender = sender,
                     uid
                 )
@@ -143,8 +218,7 @@ class DefaultMainRepository : MainRepository {
             safeCall {
                 val uid = firebaseAuth.uid!!
                 val imageUploadResult = firebaseStorage.getReference(uid).putFile(uri).await()
-                val imageUrl =
-                    imageUploadResult?.metadata?.reference?.downloadUrl?.await().toString()
+                val imageUrl = imageUploadResult?.metadata?.reference?.downloadUrl?.await().toString()
                 databaseReference.child(uid).child("profilePictureUrl").setValue(imageUrl)
                 Resource.Success(Any())
             }

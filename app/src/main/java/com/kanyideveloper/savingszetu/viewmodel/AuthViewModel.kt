@@ -1,6 +1,5 @@
 package com.kanyideveloper.savingszetu.viewmodel
 
-import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +9,7 @@ import com.google.firebase.auth.AuthResult
 import com.kanyideveloper.savingszetu.data.AuthRepository
 import com.kanyideveloper.savingszetu.utils.Constants.MAX_REG_NO_LENGTH
 import com.kanyideveloper.savingszetu.utils.Constants.MIN_PASSWORD_LENGTH
+import com.kanyideveloper.savingszetu.utils.Constants.MIN_PHONE_LENGTH
 import com.kanyideveloper.savingszetu.utils.Event
 import com.kanyideveloper.savingszetu.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val applicationContext: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
@@ -38,16 +37,18 @@ class AuthViewModel @Inject constructor(
         username: String,
         regNo: String,
         password: String,
-        repeatedPassword: String
+        phoneNum: String
     ) {
-        var error = if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        var error = if (email.isEmpty() || username.isEmpty() || password.isEmpty() || phoneNum.isEmpty()) {
             "Empty Strings"
-        } else if (password != repeatedPassword) {
-            "Passwords Incorrect"
         } else if (regNo.length != MAX_REG_NO_LENGTH) {
             "Invalid Registration Number"
-        } else if (password.length < MIN_PASSWORD_LENGTH || repeatedPassword.length < MIN_PASSWORD_LENGTH) {
+        } else if (password.length < MIN_PASSWORD_LENGTH) {
             "Password to short"
+        } else if (phoneNum.length < MIN_PHONE_LENGTH) {
+            "Phone to short"
+        } else if (phoneNum.length > MIN_PHONE_LENGTH) {
+            "Phone to long"
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             "Not a valid Email"
         } else null
@@ -59,7 +60,7 @@ class AuthViewModel @Inject constructor(
         _registerStatus.postValue(Event(Resource.Loading()))
 
         viewModelScope.launch(dispatcher) {
-            val result = authRepository.register(email, username, regNo, password)
+            val result = authRepository.register(email, username, regNo, password, phoneNum)
             _registerStatus.postValue(Event(result))
         }
     }

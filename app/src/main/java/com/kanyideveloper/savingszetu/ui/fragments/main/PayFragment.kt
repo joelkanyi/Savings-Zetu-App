@@ -1,5 +1,6 @@
 package com.kanyideveloper.savingszetu.ui.fragments.main
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.bumptech.glide.Glide
 import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
 import com.kanyideveloper.savingszetu.utils.*
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
@@ -27,6 +29,7 @@ class PayFragment : Fragment(), MpesaListener {
     private lateinit var binding: FragmentPayBinding
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
+    private lateinit var phone: String
 
     private lateinit var successAlert: SweetAlertDialog
     private lateinit var loadingAlert: SweetAlertDialog
@@ -48,6 +51,7 @@ class PayFragment : Fragment(), MpesaListener {
         mpesaListener = this
         subscribeToObservers()
         subscribeToSendObservers()
+        subscribeToUserProfileObserver()
 
         //Success Dialog
         successAlert = SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
@@ -71,7 +75,8 @@ class PayFragment : Fragment(), MpesaListener {
         //Sent Dialog
         sentAlertDialog = SweetAlertDialog(requireContext())
         sentAlertDialog.titleText = "STK Pane"
-        sentAlertDialog.contentText = "Please wait for the Safaricom pane where you can input your pin"
+        sentAlertDialog.contentText =
+            "Please wait for the Safaricom pane where you can input your pin"
 
 
         //Confirm Dialog
@@ -106,7 +111,7 @@ class PayFragment : Fragment(), MpesaListener {
             )*/
             loadingAlert.show()
             viewModel.currentNumber.observe(viewLifecycleOwner, Observer { amount ->
-                viewModel.pay("0706003891", amount)
+                viewModel.pay(phone, amount)
             })
         }
 
@@ -165,7 +170,7 @@ class PayFragment : Fragment(), MpesaListener {
         return view
     }
 
-    private fun subscribeToObservers(){
+    private fun subscribeToObservers() {
         viewModel.saveTransactionStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 binding.paymentProgressbar.isVisible = false
@@ -174,13 +179,13 @@ class PayFragment : Fragment(), MpesaListener {
             onLoading = {
                 binding.paymentProgressbar.isVisible = true
             }
-        ){
+        ) {
             binding.paymentProgressbar.isVisible = false
             showSnackbar("PaymentRepository Successful")
         })
     }
 
-    private fun subscribeToSendObservers(){
+    private fun subscribeToSendObservers() {
         viewModel.saveSendTransactionStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 loadingAlert.dismissWithAnimation()
@@ -189,9 +194,22 @@ class PayFragment : Fragment(), MpesaListener {
             onLoading = {
                 sentAlertDialog.show()
             }
-        ){
+        ) {
             loadingAlert.dismissWithAnimation()
             sentAlertDialog.show()
+        })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun subscribeToUserProfileObserver() {
+        viewModel.userProfile.observe(viewLifecycleOwner, EventObserver(
+            onError = {
+                showSnackbar(it)
+            },
+            onLoading = {
+            }
+        ) { profile ->
+            phone = profile.userPhoneNum!!
         })
     }
 
@@ -204,7 +222,7 @@ class PayFragment : Fragment(), MpesaListener {
                         "Phone: $phone\n" +
                         "Amount: $amount", Toast.LENGTH_LONG
             ).show()
-            viewModel.saveTransaction(receipt,amount,phone)
+            viewModel.saveTransaction(receipt, amount, phone)
             sentAlertDialog.dismissWithAnimation()
             successAlert.show()
         }
