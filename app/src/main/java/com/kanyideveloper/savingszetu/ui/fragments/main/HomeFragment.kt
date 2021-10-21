@@ -62,9 +62,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_payFragment)
         }
 
-        binding.cardView3.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment)
-        }
 
         binding.cardView4.setOnClickListener {
 

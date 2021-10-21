@@ -9,8 +9,8 @@
     tools:context=".ui.fragments.main.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
@@ -171,12 +171,12 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="5dp"
             android:backgroundTint="@color/green"
             app:cardCornerRadius="12dp"
-            android:layout_marginRight="5dp"
-            app:layout_constraintEnd_toStartOf="@+id/cardView3"
+            app:layout_constraintEnd_toStartOf="@+id/cardView4"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,34 +196,17 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:backgroundTint="@color/main"
-            app:cardCornerRadius="12dp"
-            android:layout_marginRight="5dp"
-            app:layout_constraintEnd_toStartOf="@+id/cardView4"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cardView2"
-            app:layout_constraintTop_toTopOf="@+id/cardView2">
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Send Money"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="@+id/cardView2"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_line_chart_up"
-                    android:tint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -231,11 +214,10 @@
             android:layout_height="80dp"
             android:backgroundTint="@color/yellow"
             app:cardCornerRadius="12dp"
-            android:layout_marginRight="5dp"
             app:layout_constraintEnd_toStartOf="@+id/cardView5"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cardView3"
-            app:layout_constraintTop_toTopOf="@+id/cardView3">
+            app:layout_constraintStart_toEndOf="@+id/cardView2"
+            app:layout_constraintTop_toTopOf="@+id/cardView2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -255,14 +237,26 @@
 
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Settings"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/cardView4"
+            app:layout_constraintStart_toStartOf="@+id/cardView4"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView5"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:backgroundTint="@color/pink"
-            app:cardCornerRadius="12dp"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardView4"
             app:layout_constraintTop_toTopOf="@+id/cardView4">
@@ -286,39 +280,6 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView22"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Send Money"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/cardView2"
-            app:layout_constraintStart_toStartOf="@+id/cardView2"
-            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
-
-        <TextView
-            android:id="@+id/textView23"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Statistics"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/cardView3"
-            app:layout_constraintStart_toStartOf="@+id/cardView3"
-            app:layout_constraintTop_toBottomOf="@+id/cardView3" />
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Settings"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/cardView4"
-            app:layout_constraintStart_toStartOf="@+id/cardView4"
-            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
-
-        <TextView
             android:id="@+id/textView25"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -328,6 +289,7 @@
             app:layout_constraintEnd_toEndOf="@+id/cardView5"
             app:layout_constraintStart_toStartOf="@+id/cardView5"
             app:layout_constraintTop_toBottomOf="@+id/cardView5" />
+
 
         <TextView
             android:id="@+id/textView26"
@@ -363,9 +325,9 @@
             app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fourTransactionsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/fourTransactionsRecyclerView"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
