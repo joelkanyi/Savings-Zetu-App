@@ -32,11 +32,11 @@ class SignUpFragment : Fragment() {
         binding.buttonSignUp.setOnClickListener {
             //findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
             viewModel.registerUser(
-                binding.editTextTextEmail.text.toString(),
-                binding.editTextTextFullName.text.toString(),
-                binding.editTextTextRegNo.text.toString(),
-                binding.editTextTextPass.text.toString(),
-                binding.editTextTextPass.text.toString()
+                binding.editTextTextEmail.editText?.text.toString(),
+                binding.editTextTextFullName.editText?.text.toString(),
+                binding.editTextTextRegNo.editText?.text.toString(),
+                binding.editTextTextPass.editText?.text.toString(),
+                binding.editTextPhoneNumber.editText?.text.toString()
             )
         }
 

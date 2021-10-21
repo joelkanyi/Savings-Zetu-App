@@ -51,7 +51,7 @@
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.UserProfileFragment"
-        android:label="fragment_user_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_user_profile" />
     <fragment
         android:id="@+id/statisticsFragment"
@@ -61,11 +61,28 @@
     <fragment
         android:id="@+id/adminFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AdminFragment"
-        android:label="fragment_admin"
-        tools:layout="@layout/fragment_admin" />
+        android:label="Class Welfare Treasurer"
+        tools:layout="@layout/fragment_admin">
+        <action
+            android:id="@+id/action_adminFragment_to_payersFragment"
+            app:destination="@id/payersFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_defaultersFragment"
+            app:destination="@id/defaultersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/defaultersFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.DefaultersFragment"
+        android:label="Defaulters"
+        tools:layout="@layout/fragment_defaulters" />
+    <fragment
+        android:id="@+id/payersFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PayersFragment"
+        android:label="Payed Members"
+        tools:layout="@layout/fragment_payers" />
 </navigation>

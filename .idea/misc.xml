@@ -13,19 +13,22 @@
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_auths_dashboard.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_defaulters.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_pay.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_pay_success.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_payers.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_statistics.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/name_row.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/notification_row.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/payments_done_row.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/transactions_row.xml" value="0.15092592592592594" />
+        <entry key="app/src/main/res/layout/transactions_row.xml" value="0.14375" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/menu/history_menu.xml" value="0.22" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.1574074074074074" />

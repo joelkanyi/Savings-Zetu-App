@@ -11,52 +11,55 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.kanyideveloper.savingszetu.adapters.HistoryAdapter
-import com.kanyideveloper.savingszetu.databinding.FragmentHistoryBinding
+import com.kanyideveloper.savingszetu.adapters.PaymentAdapter
+import com.kanyideveloper.savingszetu.databinding.FragmentDefaultersBinding
 import com.kanyideveloper.savingszetu.utils.EventObserver
 import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class HistoryFragment : Fragment() {
 
-    private lateinit var binding: FragmentHistoryBinding
-    private lateinit var navController: NavController
+@AndroidEntryPoint
+class DefaultersFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
-    private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
+    private lateinit var binding: FragmentDefaultersBinding
+    private val adapter: PaymentAdapter by lazy { PaymentAdapter() }
+    private lateinit var navController: NavController
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        val view = binding.root
+        binding = FragmentDefaultersBinding.inflate(inflater, container, false)
 
-        subscribeToObserver()
+        val view = binding.root
 
         navController = findNavController()
 
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbarHistory.setupWithNavController(navController, appBarConfiguration)
+        binding.defaultersToolbar.setupWithNavController(navController, appBarConfiguration)
+
+        subscribeToDefaultersObserver()
 
         return view
     }
 
-    private fun subscribeToObserver() {
-        viewModel.userTransactions.observe(viewLifecycleOwner, EventObserver(
+    private fun subscribeToDefaultersObserver() {
+        viewModel.defaulter.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 showSnackbar(it)
-                binding.transactProgressbar.isVisible = false
+                binding.defaultersProgressBar.isVisible = false
             },
             onLoading = {
-                binding.transactProgressbar.isVisible = true
+                binding.defaultersProgressBar.isVisible = true
             }
-        ) {transactions ->
-            binding.transactProgressbar.isVisible = false
-            historyAdapter.submitList(transactions)
-            binding.recyclerViewAllHistory.adapter = historyAdapter
+        ) { defaulters ->
+            binding.defaultersProgressBar.isVisible = false
+            adapter.submitList(defaulters)
+            binding.defaultersRecyclerView.adapter = adapter
         })
     }
+
 }

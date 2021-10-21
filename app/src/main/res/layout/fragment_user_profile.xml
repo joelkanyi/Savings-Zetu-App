@@ -11,18 +11,18 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarProfile" />
 
     <TextView
-        android:id="@+id/textView43"
+        android:id="@+id/textViewProfileUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="John Munge"
+        tools:text="John Munge"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -31,16 +31,16 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
 
     <TextView
-        android:id="@+id/textView49"
+        android:id="@+id/textViewProfileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="johnmunge@gmail.com"
+        tools:text="johnmunge@gmail.com"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView43"
-        app:layout_constraintStart_toStartOf="@+id/textView43"
-        app:layout_constraintTop_toBottomOf="@+id/textView43" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewProfileUserName"
+        app:layout_constraintStart_toStartOf="@+id/textViewProfileUserName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfileUserName" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -50,7 +50,7 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_settings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView49" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfileEmail" />
 
     <TextView
         android:id="@+id/textView50"
@@ -165,12 +165,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:text="Edit"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black"
+        android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewProfile"

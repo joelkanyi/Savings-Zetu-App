@@ -1,5 +1,6 @@
 package com.kanyideveloper.savingszetu.ui.fragments.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -15,11 +16,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
 import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.databinding.FragmentUserProfileBinding
 import com.kanyideveloper.savingszetu.ui.activities.AuthActivity
+import com.kanyideveloper.savingszetu.utils.EventObserver
+import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -69,9 +73,12 @@ class UserProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentUserProfileBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        subscribeToObservers()
+        subscribeToUserProfileObserver()
 
         navController = findNavController()
 
@@ -100,6 +107,22 @@ class UserProfileFragment : Fragment() {
         viewModel.curImageUri.observe(viewLifecycleOwner, Observer {
             currentImageUri = it
             glide.load(currentImageUri).into(binding.imageViewProfile)
+        })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun subscribeToUserProfileObserver() {
+        viewModel.userProfile.observe(viewLifecycleOwner, EventObserver(
+            onError = {
+                showSnackbar(it)
+
+            },
+            onLoading = {
+            }
+        ) { profile ->
+            binding.textViewProfileUserName.text = "${profile.username}"
+            binding.textViewProfileEmail.text = "${profile.email}"
+            Glide.with(binding.imageViewProfile).load(profile.profilePictureUrl).centerCrop().into(binding.imageViewProfile)
         })
     }
 

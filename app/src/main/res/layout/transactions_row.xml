@@ -6,13 +6,12 @@
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="3dp">
+    app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp">
-
 
         <TextView
             android:id="@+id/transDate"
