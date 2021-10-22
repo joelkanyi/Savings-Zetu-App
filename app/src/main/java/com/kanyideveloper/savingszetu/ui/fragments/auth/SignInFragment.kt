@@ -13,6 +13,7 @@ import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.databinding.FragmentSignInBinding
 import com.kanyideveloper.savingszetu.ui.activities.MainActivity
 import com.kanyideveloper.savingszetu.utils.EventObserver
+import com.kanyideveloper.savingszetu.utils.hideKeyboard
 import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,13 +33,19 @@ class SignInFragment : Fragment() {
 
         binding.buttonSignIn.setOnClickListener {
             viewModel.loginUser(
-                binding.editTextEmail.text.toString(),
-                binding.editTextPassword.text.toString()
+                binding.editTextEmail.editText?.text.toString(),
+                binding.editTextPassword.editText?.text.toString()
             )
+            this.hideKeyboard()
         }
 
         binding.textViewDontHaveAcc.setOnClickListener {
-                findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+        }
+
+        binding.textViewForgotPassword.setOnClickListener {
+            val passwordResetFragment = PasswordResetFragment()
+            passwordResetFragment.show(childFragmentManager, "Forgot Pass Dialog")
         }
 
         return binding.root

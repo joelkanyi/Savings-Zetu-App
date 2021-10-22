@@ -1,5 +1,6 @@
 package com.kanyideveloper.savingszetu.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,9 +25,10 @@ class AllPaymentsAdapter : ListAdapter<Transaction, AllPaymentsAdapter.MyViewHol
 
     inner class MyViewHolder(private val binding: PaymentsDoneRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(transaction: Transaction?) {
             binding.textViewAdmDName.text = transaction?.sendName
-            binding.textViewAdmDAmount.text = transaction?.transactionAmount
+            binding.textViewAdmDAmount.text = "KSH.${String.format("%.2f", transaction?.transactionAmount?.toDouble())}"
             binding.textViewAdmDDate.text = formatDate(transaction?.transactionDate!!)
         }
     }

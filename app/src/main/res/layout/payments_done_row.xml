@@ -32,6 +32,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Sh.50.00"
+            android:textColor="@color/green"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="14sp"
             android:textStyle="bold"

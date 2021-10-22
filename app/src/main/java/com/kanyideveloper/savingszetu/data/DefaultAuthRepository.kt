@@ -39,4 +39,13 @@ class DefaultAuthRepository : AuthRepository {
             }
         }
     }
+
+    override suspend fun forgotPassword(email: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                firebaseAuth.sendPasswordResetEmail(email).await()
+                Resource.Success(Any())
+            }
+        }
+    }
 }

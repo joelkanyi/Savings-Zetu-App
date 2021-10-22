@@ -28,6 +28,7 @@ import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 class DefaultMainRepository : MainRepository {
 
@@ -83,6 +84,47 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
+    override suspend fun updateCurrentUserTransactionDetails(
+        amountPayed: String
+    ): Resource<Any> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+
+                val user = getCurrentUserProfile()
+                val paymentDet = user.data?.current_payment_details
+
+                val uid = firebaseAuth.uid!!
+                val currentPaymentRecords =
+                    databaseReference.child("users").child(uid).child("current_payment_details")
+
+                val details = currentPaymentRecords.get().await().getValue(UserPayment::class.java)
+                    ?: throw IllegalArgumentException()
+
+                var totalMoneyPayed = details.total_payed?.toDouble()
+                var pendingMoney = details.pending?.toDouble()
+                var overpayMoney = details.overpay?.toDouble()
+
+                totalMoneyPayed = totalMoneyPayed!! + amountPayed.toDouble()
+                pendingMoney = pendingMoney!! - amountPayed.toDouble()
+
+                if (pendingMoney == 0.00) {
+                    pendingMoney = 0.00
+                }else if (pendingMoney < 0.00){
+                    overpayMoney = overpayMoney!! + abs(pendingMoney)
+                    pendingMoney = 0.00
+                }else{
+                    overpayMoney = 0.00
+                }
+
+                val paymentDetails = UserPayment(abs(overpayMoney!!).toString(), pendingMoney.toString(), totalMoneyPayed.toString())
+
+                databaseReference.child("users").child(uid).child("current_payment_details").setValue(paymentDetails).await()
+
+                Resource.Success(Any())
+            }
+        }
+    }
+
     override suspend fun getUserTransactions(): Resource<List<Transaction>> {
         return withContext(Dispatchers.IO) {
             val uid = firebaseAuth.uid!!
@@ -120,7 +162,7 @@ class DefaultMainRepository : MainRepository {
             val transactsList = ArrayList<Transaction>()
             safeCall {
                 val uid = firebaseAuth.uid!!
-                val transactions = databaseReference.child("transactions").child(uid).limitToFirst(4).get().await()
+                val transactions = databaseReference.child("all_transactions").limitToFirst(4).get().await()
                 for (i in transactions.children) {
                     val result = i.getValue(Transaction::class.java)
                     transactsList.add(result!!)
@@ -135,7 +177,7 @@ class DefaultMainRepository : MainRepository {
             val transactsList = ArrayList<Transaction>()
             safeCall {
                 val uid = firebaseAuth.uid!!
-                val transactions = databaseReference.child("transactions").child(uid).get().await()
+                val transactions = databaseReference.child("all_transactions").get().await()
                 for (i in transactions.children) {
                     val result = i.getValue(Transaction::class.java)
                     transactsList.add(result!!)
@@ -227,6 +269,8 @@ class DefaultMainRepository : MainRepository {
                     senderName
                 )
                 databaseReference.child("transactions").child(uid).child(transactionId)
+                    .setValue(transaction).await()
+                databaseReference.child("all_transactions").child(transactionId)
                     .setValue(transaction).await()
                 Resource.Success(Any())
             }

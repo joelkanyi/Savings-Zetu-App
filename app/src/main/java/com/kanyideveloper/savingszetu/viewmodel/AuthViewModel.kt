@@ -32,6 +32,10 @@ class AuthViewModel @Inject constructor(
     val loginStatus: LiveData<Event<Resource<AuthResult>>>
         get() = _loginStatus
 
+    private val _forgotPassStatus = MutableLiveData<Event<Resource<Any>>>()
+    val forgotPassStatus: LiveData<Event<Resource<Any>>>
+        get() = _forgotPassStatus
+
     fun registerUser(
         email: String,
         username: String,
@@ -73,6 +77,18 @@ class AuthViewModel @Inject constructor(
             viewModelScope.launch(dispatcher) {
                 val result = authRepository.login(email, password)
                 _loginStatus.postValue(Event(result))
+            }
+        }
+    }
+
+    fun forgotPassword(email: String){
+        if (email.isEmpty()){
+            _forgotPassStatus.postValue(Event(Resource.Error("No Email Entered")))
+        }else{
+            _forgotPassStatus.postValue(Event(Resource.Loading()))
+            viewModelScope.launch(dispatcher) {
+                val result = authRepository.forgotPassword(email)
+                _forgotPassStatus.postValue(Event(result))
             }
         }
     }

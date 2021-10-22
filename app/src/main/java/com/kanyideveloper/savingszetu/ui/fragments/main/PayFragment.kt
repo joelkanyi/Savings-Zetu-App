@@ -35,6 +35,7 @@ class PayFragment : Fragment(), MpesaListener {
     private lateinit var phone: String
     private lateinit var name: String
 
+
     private lateinit var successAlert: SweetAlertDialog
     private lateinit var loadingAlert: SweetAlertDialog
     private lateinit var confirmDialog: SweetAlertDialog
@@ -231,6 +232,7 @@ class PayFragment : Fragment(), MpesaListener {
                         "Amount: $amount", Toast.LENGTH_LONG
             ).show()
             viewModel.saveTransaction(receipt, amount, phone, name)
+            viewModel.updateTransactionDetails(amount)
             sentAlertDialog.dismissWithAnimation()
             successAlert.show()
         }

@@ -11,5 +11,6 @@ data class User(
     val regNo: String? = "",
     val userPhoneNum: String? = "",
     val profilePictureUrl: String? = CONSTANT_PROFILE_PIC_URL,
-    val current_payment_details: UserPayment? = null
+    val current_payment_details: UserPayment? = null,
+    val privilege: String? = "User"
 )

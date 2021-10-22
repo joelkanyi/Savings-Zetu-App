@@ -128,12 +128,12 @@ class HomeFragment : Fragment() {
                 //binding.fourTransactionsprogressBar.isVisible = true
             }
         ) { profile ->
-            //binding.fourTransactionsprogressBar.isVisible = false
-            //adapter.submitList(transactions)
-            //binding.fourTransactionsRecyclerView.adapter = adapter
             userName.text = "Hello ${profile.username?.substring(0, profile.username.indexOf(' '))},"
             Glide.with(userImage).load(profile.profilePictureUrl).centerCrop().into(userImage)
-            //text.substring(0, text.indexOf(' '));
+
+            if (profile.privilege.equals("Admin")){
+                binding.cardView5.isVisible = true
+            }
         })
     }
 }

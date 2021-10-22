@@ -29,4 +29,6 @@ interface MainRepository {
     suspend fun getFourAdminTransactions(): Resource<List<Transaction>>
 
     suspend fun getAllAdminsTransactions(): Resource<List<Transaction>>
+
+    suspend fun updateCurrentUserTransactionDetails(amountPayed: String): Resource<Any>
 }
