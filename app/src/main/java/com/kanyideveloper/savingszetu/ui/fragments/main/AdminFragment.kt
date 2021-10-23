@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -44,6 +45,7 @@ class AdminFragment : Fragment() {
         binding.adminToolbar.setupWithNavController(navController, appBarConfiguration)
 
         subscribeToObserver()
+        subscribeToAllMoneyObserver()
 
         binding.buttonDefaulters.setOnClickListener {
             findNavController().navigate(R.id.action_adminFragment_to_defaultersFragment)
@@ -73,6 +75,18 @@ class AdminFragment : Fragment() {
             binding.adminProgressBar.isVisible = false
             adapter.submitList(transactions)
             binding.allPaymentRecyclerView.adapter = adapter
+        })
+    }
+
+    private fun subscribeToAllMoneyObserver() {
+        viewModel.allMoney.observe(viewLifecycleOwner, EventObserver(
+            onError = {
+                showSnackbar(it)
+            },
+            onLoading = {
+            }
+        ) {money ->
+            binding.textViewTotalBalance.text = "${String.format("%.2f", money.toDouble())}"
         })
     }
 }

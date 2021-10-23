@@ -204,6 +204,15 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
+    override suspend fun getAllMoney(): Resource<String> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val allMoney = databaseReference.child("total_money").child("balance").get().await().value.toString()
+                Resource.Success(allMoney)
+            }
+        }
+    }
+
     override suspend fun getCurrentUserProfile(): Resource<User> {
         return withContext(Dispatchers.IO) {
             safeCall {
@@ -272,6 +281,9 @@ class DefaultMainRepository : MainRepository {
                     .setValue(transaction).await()
                 databaseReference.child("all_transactions").child(transactionId)
                     .setValue(transaction).await()
+                val money = getAllMoney().data?.toDouble()
+
+                databaseReference.child("total_money").child("balance").setValue(money!! + amount.toDouble()).await()
                 Resource.Success(Any())
             }
         }

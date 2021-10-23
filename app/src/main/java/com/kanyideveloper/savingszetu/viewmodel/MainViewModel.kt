@@ -63,6 +63,10 @@ class MainViewModel @Inject constructor(
     val userCurrentTransactionDetails: LiveData<Event<Resource<UserPayment>>> =
         _userCurrentTransactionDetails
 
+    private var _allMoney = MutableLiveData<Event<Resource<String>>>()
+    val allMoney: LiveData<Event<Resource<String>>> =
+        _allMoney
+
 
     init {
         getUserTransactions()
@@ -73,6 +77,7 @@ class MainViewModel @Inject constructor(
         getThosePayed()
         getAdminUserTransactions()
         getAllAdminsTransactions()
+        getAllMoney()
     }
 
     fun updateTransactionDetails(amountPayed: String){
@@ -144,6 +149,14 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) {
             val result = mainRepository.getUserCurrentPayment()
             _userCurrentTransactionDetails.postValue(Event(result))
+        }
+    }
+
+    private fun getAllMoney() {
+        _allMoney.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.getAllMoney()
+            _allMoney.postValue(Event(result))
         }
     }
 

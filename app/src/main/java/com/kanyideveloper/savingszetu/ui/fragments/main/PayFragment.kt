@@ -76,11 +76,11 @@ class PayFragment : Fragment(), MpesaListener {
 
 
         binding.button.setOnClickListener {
-            /*viewModel.saveTransaction(
-                "JK3278944BO",
-                "100000",
-                "Joel Kanyi"
-            )*/
+            if (phone == "")
+            {
+                Toast.makeText(requireContext(), "We can not proceed with your payment right now, try again later", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             viewModel.currentNumber.observe(viewLifecycleOwner, Observer { amount ->
                 viewModel.pay(phone, amount)
             })

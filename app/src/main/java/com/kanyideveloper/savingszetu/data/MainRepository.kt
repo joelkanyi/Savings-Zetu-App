@@ -31,4 +31,6 @@ interface MainRepository {
     suspend fun getAllAdminsTransactions(): Resource<List<Transaction>>
 
     suspend fun updateCurrentUserTransactionDetails(amountPayed: String): Resource<Any>
+
+    suspend fun getAllMoney(): Resource<String>
 }
