@@ -14,11 +14,13 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.33" />
         <entry key="app/src/main/res/layout/forgot_password.xml" value="0.26145833333333335" />
+        <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_all_transaction.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_auths_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_defaulters.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/fragment_help.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.22" />

@@ -24,7 +24,7 @@ class DefaultAuthRepository : AuthRepository {
                 val user = User(uid,email,userName,regNo,phoneNum)
                 //val user = User(uid,email,userName,regNo,phoneNum)
                 databaseReference.child(uid).setValue(user).await()
-                val transaction = UserPayment("0","0","0")
+                val transaction = UserPayment("0","50","0")
                 databaseReference.child(uid).child("current_payment_details").setValue(transaction)
                 Resource.Success(result)
             }

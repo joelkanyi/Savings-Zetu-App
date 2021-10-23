@@ -47,12 +47,28 @@
         android:id="@+id/paySuccessFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PaySuccessFragment"
         android:label="fragment_pay_success"
-        tools:layout="@layout/fragment_pay_success" />
+        tools:layout="@layout/fragment_pay_success" >
+        <argument
+            android:name="payment"
+            app:argType="com.kanyideveloper.savingszetu.model.Transaction" />
+        <action
+            android:id="@+id/action_paySuccessFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/paySuccessFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.UserProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.StatisticsFragment"
@@ -93,4 +109,14 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AllTransactionFragment"
         android:label="All Payments"
         tools:layout="@layout/fragment_all_transaction" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HelpFragment"
+        android:label="Help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AboutUsFragment"
+        android:label="About Us"
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

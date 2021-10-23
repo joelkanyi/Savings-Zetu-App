@@ -61,7 +61,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView45"
+                android:id="@+id/textViewAmountSent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -81,7 +81,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
             <TextView
-                android:id="@+id/textView47"
+                android:id="@+id/textViewPaymentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -89,13 +89,13 @@
                 android:text="17/09.2021 at 3:46 PM"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView45" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewAmountSent" />
 
             <TextView
                 android:id="@+id/textView48"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
                 android:text="Kindly wait for an M-PESA confirmation message"
                 android:textAlignment="center"
@@ -103,9 +103,28 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView47"
+                app:layout_constraintEnd_toEndOf="@+id/textViewTransactionCode"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Transaction Code:"
                 app:layout_constraintStart_toStartOf="@+id/textView46"
-                app:layout_constraintTop_toBottomOf="@+id/textView47" />
+                app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+            <TextView
+                android:id="@+id/textViewTransactionCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="OUA1243567YU"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textViewPaymentDate"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPaymentDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -116,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:padding="15dp"
-        android:text="Back"
+        android:text="Back To Homepage"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cardView6"

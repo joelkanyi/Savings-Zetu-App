@@ -38,7 +38,7 @@ fun formatDate(timestamp: Long): String {
     val result = Date(timestamp)
     val startCalendar = Calendar.getInstance()
     startCalendar.time = result
-    val format = SimpleDateFormat("EEEE, MMMM d, yyyy")
+    val format = SimpleDateFormat("EEEE, MMMM d, yyyy 'at' hh:mm a")
 
     return format.format(startCalendar.time)
 }

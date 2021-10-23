@@ -18,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.kanyideveloper.savingszetu.databinding.FragmentPayBinding
+import com.kanyideveloper.savingszetu.model.Transaction
 import com.kanyideveloper.savingszetu.utils.*
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,11 +37,8 @@ class PayFragment : Fragment(), MpesaListener {
     private lateinit var name: String
 
 
-    private lateinit var successAlert: SweetAlertDialog
     private lateinit var loadingAlert: SweetAlertDialog
-    private lateinit var confirmDialog: SweetAlertDialog
     private lateinit var errorAlert: SweetAlertDialog
-    private lateinit var sentAlertDialog: SweetAlertDialog
 
     companion object {
         lateinit var mpesaListener: MpesaListener
@@ -58,14 +56,6 @@ class PayFragment : Fragment(), MpesaListener {
         subscribeToSendObservers()
         subscribeToUserProfileObserver()
 
-        //Success Dialog
-        successAlert = SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-        successAlert.progressHelper.barColor = Color.parseColor("#A5DC86")
-        successAlert.titleText = "Payment Success"
-        successAlert.contentText = "You payment was sent Successfully"
-        successAlert.setConfirmClickListener { successAlert.dismissWithAnimation() }
-        successAlert.setCancelable(false)
-
         //Loading Dialog
         loadingAlert = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
         loadingAlert.progressHelper.barColor = Color.parseColor("#A5DC86")
@@ -77,29 +67,6 @@ class PayFragment : Fragment(), MpesaListener {
         errorAlert.titleText = "Oops..."
         errorAlert.contentText = "Something went wrong!"
 
-        //Sent Dialog
-        sentAlertDialog = SweetAlertDialog(requireContext())
-        sentAlertDialog.titleText = "STK Pane"
-        sentAlertDialog.contentText =
-            "Please wait for the Safaricom pane where you can input your pin"
-
-
-        //Confirm Dialog
-/*        confirmDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
-            .setTitleText("Are you sure you want to request garbage collection?")
-            .setCancelText("No")
-            .setConfirmText("Yes")
-            .showCancelButton(true)
-            .setConfirmClickListener {
-                this.showLoadingAlert()
-
-                // Do some logic stuffs
-                this.showSuccessAlert()
-            }
-            .setCancelClickListener {
-                //dismiss the dialog
-            }
-            .show()*/
 
         navController = findNavController()
 
@@ -114,7 +81,6 @@ class PayFragment : Fragment(), MpesaListener {
                 "100000",
                 "Joel Kanyi"
             )*/
-            loadingAlert.show()
             viewModel.currentNumber.observe(viewLifecycleOwner, Observer { amount ->
                 viewModel.pay(phone, amount)
             })
@@ -197,11 +163,9 @@ class PayFragment : Fragment(), MpesaListener {
                 errorAlert.show()
             },
             onLoading = {
-                sentAlertDialog.show()
             }
         ) {
             loadingAlert.dismissWithAnimation()
-            sentAlertDialog.show()
         })
     }
 
@@ -233,8 +197,14 @@ class PayFragment : Fragment(), MpesaListener {
             ).show()
             viewModel.saveTransaction(receipt, amount, phone, name)
             viewModel.updateTransactionDetails(amount)
-            sentAlertDialog.dismissWithAnimation()
-            successAlert.show()
+            //sentAlertDialog.dismissWithAnimation()
+
+
+            val transaction = Transaction("",receipt,amount,0,"","",date)
+
+            val action = PayFragmentDirections.actionPayFragmentToPaySuccessFragment(transaction)
+
+            findNavController().navigate(action)
         }
 
     }
@@ -245,7 +215,6 @@ class PayFragment : Fragment(), MpesaListener {
                 requireContext(), "PaymentRepository Failed\n" +
                         "Reason: $cause", Toast.LENGTH_LONG
             ).show()
-            sentAlertDialog.dismissWithAnimation()
             errorAlert.show()
         }
     }

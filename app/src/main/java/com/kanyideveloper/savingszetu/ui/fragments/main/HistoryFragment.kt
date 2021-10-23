@@ -34,6 +34,7 @@ class HistoryFragment : Fragment() {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val view = binding.root
 
+
         subscribeToObserver()
 
         navController = findNavController()
