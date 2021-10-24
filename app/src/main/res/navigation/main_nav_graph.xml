@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -47,12 +50,28 @@
         android:id="@+id/paySuccessFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PaySuccessFragment"
         android:label="fragment_pay_success"
-        tools:layout="@layout/fragment_pay_success" />
+        tools:layout="@layout/fragment_pay_success" >
+        <argument
+            android:name="payment"
+            app:argType="com.kanyideveloper.savingszetu.model.Transaction" />
+        <action
+            android:id="@+id/action_paySuccessFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/paySuccessFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.UserProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.StatisticsFragment"
@@ -69,6 +88,9 @@
         <action
             android:id="@+id/action_adminFragment_to_defaultersFragment"
             app:destination="@id/defaultersFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_allTransactionFragment"
+            app:destination="@id/allTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
@@ -85,4 +107,23 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.PayersFragment"
         android:label="Payed Members"
         tools:layout="@layout/fragment_payers" />
+    <fragment
+        android:id="@+id/allTransactionFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AllTransactionFragment"
+        android:label="All Payments"
+        tools:layout="@layout/fragment_all_transaction" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.HelpFragment"
+        android:label="Help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AboutUsFragment"
+        android:label="About Us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

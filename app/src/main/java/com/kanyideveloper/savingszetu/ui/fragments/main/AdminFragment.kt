@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +19,7 @@ import com.kanyideveloper.savingszetu.utils.EventObserver
 import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -43,6 +45,7 @@ class AdminFragment : Fragment() {
         binding.adminToolbar.setupWithNavController(navController, appBarConfiguration)
 
         subscribeToObserver()
+        subscribeToAllMoneyObserver()
 
         binding.buttonDefaulters.setOnClickListener {
             findNavController().navigate(R.id.action_adminFragment_to_defaultersFragment)
@@ -52,6 +55,9 @@ class AdminFragment : Fragment() {
             findNavController().navigate(R.id.action_adminFragment_to_payersFragment)
         }
 
+        binding.imageViewGoToAllTransactions.setOnClickListener {
+            findNavController().navigate(R.id.action_adminFragment_to_allTransactionFragment)
+        }
         return view
     }
 
@@ -65,9 +71,22 @@ class AdminFragment : Fragment() {
                 binding.adminProgressBar.isVisible = true
             }
         ) {transactions ->
+            Timber.d(transactions.toString())
             binding.adminProgressBar.isVisible = false
             adapter.submitList(transactions)
             binding.allPaymentRecyclerView.adapter = adapter
+        })
+    }
+
+    private fun subscribeToAllMoneyObserver() {
+        viewModel.allMoney.observe(viewLifecycleOwner, EventObserver(
+            onError = {
+                showSnackbar(it)
+            },
+            onLoading = {
+            }
+        ) {money ->
+            binding.textViewTotalBalance.text = "${String.format("%.2f", money.toDouble())}"
         })
     }
 }

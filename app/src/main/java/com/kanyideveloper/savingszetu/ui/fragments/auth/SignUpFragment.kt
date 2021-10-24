@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.databinding.FragmentSignUpBinding
 import com.kanyideveloper.savingszetu.utils.EventObserver
+import com.kanyideveloper.savingszetu.utils.hideKeyboard
 import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +39,7 @@ class SignUpFragment : Fragment() {
                 binding.editTextTextPass.editText?.text.toString(),
                 binding.editTextPhoneNumber.editText?.text.toString()
             )
+            this.hideKeyboard()
         }
 
         binding.textViewHaveAcc.setOnClickListener {

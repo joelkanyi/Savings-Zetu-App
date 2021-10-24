@@ -92,6 +92,30 @@ class UserProfileFragment : Fragment() {
             requireActivity().finish()
         }
 
+        binding.textViewHelp.setOnClickListener {
+            findNavController().navigate(R.id.action_userProfileFragment_to_helpFragment)
+        }
+
+        binding.textViewAboutUs.setOnClickListener {
+            findNavController().navigate(R.id.action_userProfileFragment_to_aboutUsFragment)
+        }
+
+        binding.textViewShare.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Savings Zetu App")
+            startActivity(Intent.createChooser(intent, "Choose One App!"))
+        }
+
+        binding.textViewFeedback.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/email"
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("joelkanyi98@gmail.com"))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
+            intent.putExtra(Intent.EXTRA_TEXT, "there is an issue")
+            startActivity(Intent.createChooser(intent, "Send Feedback"))
+        }
+
         binding.selectImage.setOnClickListener {
             cropContent.launch("image/*")
         }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_nav_graph"
-    app:startDestination="@id/authsDashboardFragment">
+    app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/authsDashboardFragment"
         android:name="com.kanyideveloper.savingszetu.ui.fragments.auth.AuthsDashboardFragment"
@@ -48,4 +48,15 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.auth.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_authsDashboardFragment"
+            app:destination="@id/authsDashboardFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

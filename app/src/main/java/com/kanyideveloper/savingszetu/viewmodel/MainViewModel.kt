@@ -1,6 +1,5 @@
 package com.kanyideveloper.savingszetu.viewmodel
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,12 +13,9 @@ import com.kanyideveloper.savingszetu.utils.Event
 import com.kanyideveloper.savingszetu.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 
@@ -35,6 +31,9 @@ class MainViewModel @Inject constructor(
     private val _saveSendTransactionStatus = MutableLiveData<Event<Resource<Any>>>()
     val saveSendTransactionStatus: LiveData<Event<Resource<Any>>> = _saveSendTransactionStatus
 
+    private val _saveTransactionBalances = MutableLiveData<Event<Resource<Any>>>()
+    val saveTransactionBalances: LiveData<Event<Resource<Any>>> = _saveTransactionBalances
+
     private var _userTransactions = MutableLiveData<Event<Resource<List<Transaction>>>>()
     val userTransactions: LiveData<Event<Resource<List<Transaction>>>> = _userTransactions
 
@@ -43,6 +42,9 @@ class MainViewModel @Inject constructor(
 
     private var _adminFourTransactions = MutableLiveData<Event<Resource<List<Transaction>>>>()
     val adminFourTransactions: LiveData<Event<Resource<List<Transaction>>>> = _adminFourTransactions
+
+    private var _adminTransactions = MutableLiveData<Event<Resource<List<Transaction>>>>()
+    val adminTransactions: LiveData<Event<Resource<List<Transaction>>>> = _adminTransactions
 
     private var _defaulter = MutableLiveData<Event<Resource<List<User>>>>()
     val defaulter: LiveData<Event<Resource<List<User>>>> = _defaulter
@@ -57,6 +59,10 @@ class MainViewModel @Inject constructor(
     val userCurrentTransactionDetails: LiveData<Event<Resource<UserPayment>>> =
         _userCurrentTransactionDetails
 
+    private var _allMoney = MutableLiveData<Event<Resource<String>>>()
+    val allMoney: LiveData<Event<Resource<String>>> =
+        _allMoney
+
 
     init {
         getUserTransactions()
@@ -66,6 +72,24 @@ class MainViewModel @Inject constructor(
         getDefaulter()
         getThosePayed()
         getAdminUserTransactions()
+        getAllAdminsTransactions()
+        getAllMoney()
+    }
+
+    fun updateTransactionDetails(amountPayed: String){
+        _saveTransactionBalances.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.updateCurrentUserTransactionDetails(amountPayed)
+            _saveTransactionBalances.postValue(Event(result))
+        }
+    }
+
+    private fun getAllAdminsTransactions(){
+        _adminTransactions.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.getAllAdminsTransactions()
+            _adminTransactions.postValue(Event(result))
+        }
     }
 
     private fun getDefaulter() {
@@ -124,6 +148,14 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun getAllMoney() {
+        _allMoney.postValue(Event(Resource.Loading()))
+        viewModelScope.launch(dispatcher) {
+            val result = mainRepository.getAllMoney()
+            _allMoney.postValue(Event(result))
+        }
+    }
+
     private val _curImageUri = MutableLiveData<Uri>()
     val curImageUri: LiveData<Uri> = _curImageUri
 
@@ -131,25 +163,18 @@ class MainViewModel @Inject constructor(
         _curImageUri.postValue(uri)
     }
 
-
     private val _currentNumber = MutableLiveData<String>("0")
     val currentNumber: LiveData<String> = _currentNumber
 
-    fun saveTransaction(
-        code: String,
-        amount: String,
-        sender: String
-    ) {
+    fun saveTransaction(code: String, amount: String, sender: String, senderName: String) {
         _saveTransactionStatus.postValue(Event(Resource.Loading()))
         viewModelScope.launch(dispatcher) {
-            val result = mainRepository.saveTransactionToDB(code, amount, sender)
+            val result = mainRepository.saveTransactionToDB(code, amount, sender, senderName)
             _saveTransactionStatus.postValue(Event(result))
         }
     }
 
-    fun pay(
-        phone: String, amount: String
-    ) {
+    fun pay(phone: String, amount: String) {
         viewModelScope.launch(dispatcher) {
             val result = mainRepository.pay(phone, amount)
             _saveSendTransactionStatus.postValue(Event(result))
@@ -192,5 +217,23 @@ class MainViewModel @Inject constructor(
 
     fun uploadProfileImage(currentImageUri: Uri?) {
 
+    }
+
+    fun updateProfile(userName: String){
+        viewModelScope.launch(dispatcher) {
+            mainRepository.updateUserName(userName)
+        }
+    }
+
+    fun updatePhoneNumber(phoneNum: String){
+        viewModelScope.launch(dispatcher) {
+            mainRepository.updateUserName(phoneNum)
+        }
+    }
+
+    fun sendPasswordResetLink(email: String){
+        viewModelScope.launch(dispatcher) {
+            mainRepository.sendPasswordResetLink(email)
+        }
     }
 }

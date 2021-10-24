@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kanyideveloper.savingszetu.databinding.TransactionsRowBinding
 import com.kanyideveloper.savingszetu.model.Transaction
+import com.kanyideveloper.savingszetu.utils.formatDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,19 +26,6 @@ class HistoryAdapter :
             val rounded = String.format("%.2f", transaction?.transactionAmount?.toDouble())
 
             binding.transAmount.text = "KSH.$rounded"
-        }
-
-        @SuppressLint("SimpleDateFormat")
-        fun formatDate(timestamp: Long): String {
-            val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-/*            val timeZone = TimeZone.getDefault()
-            df1.timeZone = timeZone*/
-            val result = Date(timestamp)
-            val startCalendar = Calendar.getInstance()
-            startCalendar.time = result
-            val format = SimpleDateFormat("EEEE, MMMM d, yyyy")
-
-            return format.format(startCalendar.time)
         }
 
     }

@@ -28,6 +28,7 @@ import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 class DefaultMainRepository : MainRepository {
 
@@ -49,7 +50,7 @@ class DefaultMainRepository : MainRepository {
         })
 
     override suspend fun pay(phone: String, amount: String): Resource<Any> {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Main) {
 
             safeCall {
                 val lnmExpress = LNMExpress(
@@ -79,6 +80,47 @@ class DefaultMainRepository : MainRepository {
                     })
 
                 Resource.Success(request)
+            }
+        }
+    }
+
+    override suspend fun updateCurrentUserTransactionDetails(
+        amountPayed: String
+    ): Resource<Any> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+
+                val user = getCurrentUserProfile()
+                val paymentDet = user.data?.current_payment_details
+
+                val uid = firebaseAuth.uid!!
+                val currentPaymentRecords =
+                    databaseReference.child("users").child(uid).child("current_payment_details")
+
+                val details = currentPaymentRecords.get().await().getValue(UserPayment::class.java)
+                    ?: throw IllegalArgumentException()
+
+                var totalMoneyPayed = details.total_payed?.toDouble()
+                var pendingMoney = details.pending?.toDouble()
+                var overpayMoney = details.overpay?.toDouble()
+
+                totalMoneyPayed = totalMoneyPayed!! + amountPayed.toDouble()
+                pendingMoney = pendingMoney!! - amountPayed.toDouble()
+
+                if (pendingMoney == 0.00) {
+                    pendingMoney = 0.00
+                }else if (pendingMoney < 0.00){
+                    overpayMoney = overpayMoney!! + abs(pendingMoney)
+                    pendingMoney = 0.00
+                }else{
+                    overpayMoney = 0.00
+                }
+
+                val paymentDetails = UserPayment(abs(overpayMoney!!).toString(), pendingMoney.toString(), totalMoneyPayed.toString())
+
+                databaseReference.child("users").child(uid).child("current_payment_details").setValue(paymentDetails).await()
+
+                Resource.Success(Any())
             }
         }
     }
@@ -117,10 +159,25 @@ class DefaultMainRepository : MainRepository {
 
     override suspend fun getFourAdminTransactions(): Resource<List<Transaction>> {
         return withContext(Dispatchers.IO) {
-            val uid = firebaseAuth.uid!!
             val transactsList = ArrayList<Transaction>()
             safeCall {
-                val transactions = databaseReference.child("transactions").limitToFirst(4).get().await()
+                val uid = firebaseAuth.uid!!
+                val transactions = databaseReference.child("all_transactions").limitToFirst(4).get().await()
+                for (i in transactions.children) {
+                    val result = i.getValue(Transaction::class.java)
+                    transactsList.add(result!!)
+                }
+                Resource.Success(transactsList)
+            }
+        }
+    }
+
+    override suspend fun getAllAdminsTransactions(): Resource<List<Transaction>> {
+        return withContext(Dispatchers.IO) {
+            val transactsList = ArrayList<Transaction>()
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                val transactions = databaseReference.child("all_transactions").get().await()
                 for (i in transactions.children) {
                     val result = i.getValue(Transaction::class.java)
                     transactsList.add(result!!)
@@ -143,6 +200,15 @@ class DefaultMainRepository : MainRepository {
 
                 Resource.Success(details)
 
+            }
+        }
+    }
+
+    override suspend fun getAllMoney(): Resource<String> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val allMoney = databaseReference.child("total_money").child("balance").get().await().value.toString()
+                Resource.Success(allMoney)
             }
         }
     }
@@ -195,7 +261,8 @@ class DefaultMainRepository : MainRepository {
     override suspend fun saveTransactionToDB(
         code: String,
         amount: String,
-        sender: String
+        sender: String,
+        senderName: String
     ): Resource<Any> {
         return withContext(Dispatchers.IO) {
             safeCall {
@@ -207,10 +274,16 @@ class DefaultMainRepository : MainRepository {
                     transactionAmount = amount,
                     transactionDate = System.currentTimeMillis(),
                     transactionSender = sender,
-                    uid
+                    uid,
+                    senderName
                 )
                 databaseReference.child("transactions").child(uid).child(transactionId)
                     .setValue(transaction).await()
+                databaseReference.child("all_transactions").child(transactionId)
+                    .setValue(transaction).await()
+                val money = getAllMoney().data?.toDouble()
+
+                databaseReference.child("total_money").child("balance").setValue(money!! + amount.toDouble()).await()
                 Resource.Success(Any())
             }
         }
@@ -223,6 +296,35 @@ class DefaultMainRepository : MainRepository {
                 val imageUploadResult = firebaseStorage.getReference(uid).putFile(uri).await()
                 val imageUrl = imageUploadResult?.metadata?.reference?.downloadUrl?.await().toString()
                 databaseReference.child(uid).child("profilePictureUrl").setValue(imageUrl)
+                Resource.Success(Any())
+            }
+        }
+    }
+
+    override suspend fun updateUserName(userName: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                databaseReference.child("users").child(uid).child("username").setValue(userName).await()
+                Resource.Success(Any())
+            }
+        }
+    }
+
+    override suspend fun updatePhoneNumber(phone: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                databaseReference.child("users").child(uid).child("userPhoneNum").setValue(phone).await()
+                Resource.Success(Any())
+            }
+        }
+    }
+
+    override suspend fun sendPasswordResetLink(email: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val result = firebaseAuth.sendPasswordResetEmail(email).await()
                 Resource.Success(Any())
             }
         }
