@@ -33,4 +33,10 @@ interface MainRepository {
     suspend fun updateCurrentUserTransactionDetails(amountPayed: String): Resource<Any>
 
     suspend fun getAllMoney(): Resource<String>
+
+    suspend fun updateUserName(userName: String): Resource<Any>
+
+    suspend fun updatePhoneNumber(phone: String): Resource<Any>
+
+    suspend fun sendPasswordResetLink(email: String): Resource<Any>
 }

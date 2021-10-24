@@ -1,0 +1,52 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="Profile">
+
+        <EditTextPreference
+            android:key="username"
+            android:title="Username"
+            android:summary="Edit your user name"
+            android:defaultValue=""
+            android:dialogTitle="Enter a new Username" />
+
+        <EditTextPreference
+            android:key="phonenum"
+            android:title="Phone Number"
+            android:summary="Edit your M-PESA phone number"
+            android:defaultValue=""
+            android:dialogTitle="Enter a new Phone Number" />
+
+
+        <EditTextPreference
+            android:key="password"
+            android:title="Password"
+            android:summary="Edit your password"
+            android:defaultValue=""
+            android:dialogTitle="Enter your Email Address" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Other Settings">
+
+        <SwitchPreferenceCompat
+            app:key="language"
+            app:summaryOff="All Languaages"
+            app:summaryOn="Using English only"
+            app:title="English Only" />
+
+        <Preference
+            android:enabled="true"
+            android:key="rate"
+            android:title="Rate Us"
+            android:summary="Go to playstore and rate our App" />
+
+        <Preference
+            android:enabled="true"
+            android:key="updates"
+            android:title="Updates"
+            android:summary="Check for new App updates" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

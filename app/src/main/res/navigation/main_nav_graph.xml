@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -119,4 +122,8 @@
         android:name="com.kanyideveloper.savingszetu.ui.fragments.main.AboutUsFragment"
         android:label="About Us"
         tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.kanyideveloper.savingszetu.ui.fragments.main.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

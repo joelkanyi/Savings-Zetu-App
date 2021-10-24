@@ -300,4 +300,33 @@ class DefaultMainRepository : MainRepository {
             }
         }
     }
+
+    override suspend fun updateUserName(userName: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                databaseReference.child("users").child(uid).child("username").setValue(userName).await()
+                Resource.Success(Any())
+            }
+        }
+    }
+
+    override suspend fun updatePhoneNumber(phone: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val uid = firebaseAuth.uid!!
+                databaseReference.child("users").child(uid).child("userPhoneNum").setValue(phone).await()
+                Resource.Success(Any())
+            }
+        }
+    }
+
+    override suspend fun sendPasswordResetLink(email: String): Resource<Any> {
+        return withContext(Dispatchers.IO){
+            safeCall {
+                val result = firebaseAuth.sendPasswordResetEmail(email).await()
+                Resource.Success(Any())
+            }
+        }
+    }
 }

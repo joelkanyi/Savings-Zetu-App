@@ -1,6 +1,5 @@
 package com.kanyideveloper.savingszetu.viewmodel
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,12 +13,9 @@ import com.kanyideveloper.savingszetu.utils.Event
 import com.kanyideveloper.savingszetu.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 
@@ -221,5 +217,23 @@ class MainViewModel @Inject constructor(
 
     fun uploadProfileImage(currentImageUri: Uri?) {
 
+    }
+
+    fun updateProfile(userName: String){
+        viewModelScope.launch(dispatcher) {
+            mainRepository.updateUserName(userName)
+        }
+    }
+
+    fun updatePhoneNumber(phoneNum: String){
+        viewModelScope.launch(dispatcher) {
+            mainRepository.updateUserName(phoneNum)
+        }
+    }
+
+    fun sendPasswordResetLink(email: String){
+        viewModelScope.launch(dispatcher) {
+            mainRepository.sendPasswordResetLink(email)
+        }
     }
 }
