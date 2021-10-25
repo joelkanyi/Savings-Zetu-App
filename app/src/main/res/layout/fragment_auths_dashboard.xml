@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/luam_light"
-        android:text="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+        android:text="Join fellow users in sending and saving money for future uncertainities"
         android:textAlignment="center"
         android:textSize="40sp"
         android:textStyle="bold"

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="3dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="8dp"
+    app:cardElevation="3dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="5dp"
+        android:padding="10dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/textViewSZPending"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,8 @@
             android:id="@+id/textViewSZPending"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="Pending: KSH50.00"
             app:layout_constraintEnd_toStartOf="@+id/textViewSZOverpay"
             app:layout_constraintHorizontal_bias="0.5"
@@ -50,7 +52,7 @@
             android:id="@+id/textViewSZOverpay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:text="Overpay: KSH0.00"
             app:layout_constraintEnd_toEndOf="parent"

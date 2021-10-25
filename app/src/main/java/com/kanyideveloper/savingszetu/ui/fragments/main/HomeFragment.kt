@@ -115,6 +115,10 @@ class HomeFragment : Fragment() {
                 binding.fourTransactionsprogressBar.isVisible = true
             }
         ) {transactions ->
+            if (transactions.isEmpty()){
+                binding.imageViewEmpty.isVisible = true
+                binding.textViewEmpty.isVisible = true
+            }
             binding.fourTransactionsprogressBar.isVisible = false
             adapter.submitList(transactions)
             binding.fourTransactionsRecyclerView.adapter = adapter
