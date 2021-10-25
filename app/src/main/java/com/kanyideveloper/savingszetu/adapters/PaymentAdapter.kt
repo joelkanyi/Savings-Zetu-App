@@ -19,16 +19,16 @@ class PaymentAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(user: User?) {
             binding.textViewSZName.text = user?.username
-            binding.textViewSZBalance.text = "KSH.${
+            binding.textViewSZBalance.text = "Total Contribution: KSH.${
                 String.format(
                     "%.2f",
                     user?.current_payment_details?.total_payed?.toDouble()
                 )
             }"
             binding.textViewSZPending.text =
-                "KSH.${String.format("%.2f", user?.current_payment_details?.pending?.toDouble())}"
+                "Pending: KSH.${String.format("%.2f", user?.current_payment_details?.pending?.toDouble())}"
             binding.textViewSZOverpay.text =
-                "KSH.${String.format("%.2f", user?.current_payment_details?.overpay?.toDouble())}"
+                "Overpay: KSH.${String.format("%.2f", user?.current_payment_details?.overpay?.toDouble())}"
         }
     }
 
