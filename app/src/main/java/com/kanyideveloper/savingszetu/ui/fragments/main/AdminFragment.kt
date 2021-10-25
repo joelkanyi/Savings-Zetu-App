@@ -1,5 +1,6 @@
 package com.kanyideveloper.savingszetu.ui.fragments.main
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.kanyideveloper.savingszetu.utils.EventObserver
 import com.kanyideveloper.savingszetu.utils.showSnackbar
 import com.kanyideveloper.savingszetu.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.eazegraph.lib.models.PieModel
 import timber.log.Timber
 
 
@@ -47,6 +49,8 @@ class AdminFragment : Fragment() {
         subscribeToObserver()
         subscribeToAllMoneyObserver()
 
+        setData()
+
         binding.buttonDefaulters.setOnClickListener {
             findNavController().navigate(R.id.action_adminFragment_to_defaultersFragment)
         }
@@ -59,6 +63,14 @@ class AdminFragment : Fragment() {
             findNavController().navigate(R.id.action_adminFragment_to_allTransactionFragment)
         }
         return view
+    }
+
+    private fun setData(){
+        binding.piechart.addPieSlice(PieModel("Payers",10f, Color.parseColor("#66BB6A")))
+        binding.piechart.addPieSlice(PieModel("Defaulters",20f, Color.parseColor("#EF5350")))
+        binding.piechart.addPieSlice(PieModel("Others",70f, Color.parseColor("#29B6F6")))
+
+        binding.piechart.startAnimation()
     }
 
     private fun subscribeToObserver() {

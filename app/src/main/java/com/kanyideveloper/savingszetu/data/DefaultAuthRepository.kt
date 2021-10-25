@@ -20,6 +20,7 @@ class DefaultAuthRepository : AuthRepository {
         return withContext(Dispatchers.IO) {
             safeCall {
                 val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                firebaseAuth.currentUser?.sendEmailVerification()?.await()
                 val uid = result.user?.uid!!
                 val user = User(uid,email,userName,regNo,phoneNum)
                 //val user = User(uid,email,userName,regNo,phoneNum)

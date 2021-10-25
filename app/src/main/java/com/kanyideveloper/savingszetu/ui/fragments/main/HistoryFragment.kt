@@ -34,7 +34,6 @@ class HistoryFragment : Fragment() {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
         subscribeToObserver()
 
         navController = findNavController()
@@ -55,6 +54,10 @@ class HistoryFragment : Fragment() {
                 binding.transactProgressbar.isVisible = true
             }
         ) {transactions ->
+            if (transactions.isEmpty()){
+                binding.imageView11Empty.isVisible = true
+                binding.textView19Empty.isVisible = true
+            }
             binding.transactProgressbar.isVisible = false
             historyAdapter.submitList(transactions)
             binding.recyclerViewAllHistory.adapter = historyAdapter

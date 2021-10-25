@@ -1,7 +1,9 @@
 package com.kanyideveloper.savingszetu.ui.fragments.main
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -87,9 +89,17 @@ class UserProfileFragment : Fragment() {
 
 
         binding.textViewLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(requireContext(), AuthActivity::class.java))
-            requireActivity().finish()
+
+            AlertDialog.Builder(requireContext())
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { _, _ ->
+                    FirebaseAuth.getInstance().signOut()
+                    startActivity(Intent(requireContext(), AuthActivity::class.java))
+                    requireActivity().finish()
+                })
+                .setNegativeButton("No", null)
+                .show()
         }
 
         binding.textViewHelp.setOnClickListener {
@@ -118,10 +128,6 @@ class UserProfileFragment : Fragment() {
 
         binding.selectImage.setOnClickListener {
             cropContent.launch("image/*")
-        }
-
-        binding.button5.setOnClickListener {
-            binding.selectImage.isVisible = true
         }
 
         return view

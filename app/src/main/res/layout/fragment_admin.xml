@@ -94,13 +94,17 @@
                 app:strokeColor="@color/dark_gray"
                 app:strokeWidth="1dp" />
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
+            <org.eazegraph.lib.charts.PieChart
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/piechart"
+                android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
+                android:padding="6dp"
+                app:egUsePieRotation="true"
+                app:egValueTextSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonThosePayed" />
@@ -113,8 +117,8 @@
                 android:text="Transactions"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/chart"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
+                app:layout_constraintStart_toStartOf="@+id/piechart"
+                app:layout_constraintTop_toBottomOf="@+id/piechart" />
 
             <ImageView
                 android:id="@+id/imageViewGoToAllTransactions"
@@ -124,7 +128,7 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_chevron_right"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
+                app:layout_constraintTop_toBottomOf="@+id/piechart" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/allPaymentRecyclerView"
