@@ -1,7 +1,7 @@
 <p align="center"><img src="screenshots/logo.png" alt="SavingsZetu App" height="250px"></p>
 
 # SavingsZetu App
-An Android app built with Kotlin, to help students at Kibabii University make monthly contributions. . It is built with the MVVM pattern and the latest Jetpack components.
+An Android app built with Kotlin, to help students at Kibabii University make monthly contributions. . It is built with the MVVM pattern and the latest Jetpack components. Firebase as the backend
 
 # Demo
 <img src="screenshots/splash.png" width="250"/>
@@ -32,7 +32,7 @@ An Android app built with Kotlin, to help students at Kibabii University make mo
 - [Glide](https://github.com/bumptech/glide)- An image loading and caching library for Android focused on smooth scrolling.
 - [Timber](https://github.com/JakeWharton/timber)- A logger with a small, extensible API which provides utility on top of Android's normal Log class.
 - [SavedStateHandle](https://developer.android.com/guide/navigation/navigation-programmatic) - Getting results from a destination when navigating from one fragment to another
-- [SafeApiCall](https://github.com/JoelKanyi/StarWars/blob/main/app/src/main/java/com/kanyideveloper/starwars/network/SafeApiCall.kt) Making safe API calls
+- [SafeApiCall](https://github.com/JoelKanyi/Savings-Zetu-App/blob/main/app/src/main/java/com/kanyideveloper/savingszetu/utils/ExtensionFunctions.kt) Making safe Firebase network calls
 - [Firebase Functions](https://firebase.google.com/docs/functions) - Cloud Functions for Firebase is a serverless framework that lets you automatically run backend code in response to events triggered by Firebase features and HTTPS requests.
 - [Firebase Database](https://firebase.google.com/docs/database) - Store and sync data with our NoSQL cloud database. Data is synced across all clients in realtime, and remains available when your app goes offline.
 - [Firebase Authentication](https://firebase.google.com/docs/auth) - Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app.
