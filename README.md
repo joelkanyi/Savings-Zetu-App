@@ -3,6 +3,18 @@
 # SavingsZetu App
 An Android app built with Kotlin, to help students at Kibabii University make monthly contributions. . It is built with the MVVM pattern and the latest Jetpack components.
 
+# Demo
+<img src="screenshots/splash.png" width="250"/>
+
+### Authentication 
+<img src="screenshots/auth_dashboard.png" width="250"/> <img src="screenshots/register.png" width="250"/> <img src="screenshots/login.png" width="250"/> <img src="screenshots/forgot_pass.png"
+
+### Normal User
+<img src="screenshots/home.png" width="250"/> <img src="screenshots/pay.png" width="250"/> <img src="screenshots/history.png" width="250"/> <img src="screenshots/profile.png" width="250"/> <img src="screenshots/notif.png" width="250"/>
+
+### Admin
+<img src="screenshots/admin.png" width="250"/> <img src="screenshots/all_payment.png" width="250"/> <img src="screenshots/payers.png" width="250"/> <img src="screenshots/defaulters.png" width="250"/>
+
 ## Tech Stack.
 - [Kotlin](https://developer.android.com/kotlin) - Kotlin is a programming language that can run on JVM. Google has announced Kotlin as one of its officially supported programming languages in Android Studio; and the Android community is migrating at a pace from Java to Kotlin
 - [Android KTX](https://developer.android.com/kotlin/ktx.html) - Provide concise, idiomatic Kotlin to Jetpack and Android platform APIs.
@@ -27,19 +39,6 @@ An Android app built with Kotlin, to help students at Kibabii University make mo
 - [Firebase Messaging](https://firebase.google.com/docs/cloud-messaging) - Firebase Cloud Messaging (FCM) is a cross-platform messaging solution that lets you reliably send messages at no cost.
 - [Firebase Storage](https://firebase.google.com/docs/storage) - Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale.
 - [Safaricom Daraja API(Lipa na Mpesa)](https://github.com/jumaallan/android-mpesa-api) - Android MPESA SDK Library to provide smooth MPESA Experience in Android - Dubbed Daraja 
-
-
-# Demo
-<img src="screenshots/splash.png" width="250"/>
-
-### Authentication 
-<img src="screenshots/auth_dashboard.png" width="250"/> <img src="screenshots/register.png" width="250"/> <img src="screenshots/login.png" width="250"/> <img src="screenshots/forgot_pass.png"
-
-### Normal User
-<img src="screenshots/home.png" width="250"/> <img src="screenshots/pay.png" width="250"/> <img src="screenshots/history.png" width="250"/> <img src="screenshots/profile.png" width="250"/> <img src="screenshots/notif.png" width="250"/>
-
-### Admin
-<img src="screenshots/admin.png" width="250"/> <img src="screenshots/all_payment.png" width="250"/> <img src="screenshots/payers.png" width="250"/> <img src="screenshots/defaulters.png" width="250"/>
 
 ## Setup Requirements
 - Android device or emulator
