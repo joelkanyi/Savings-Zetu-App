@@ -1,4 +1,4 @@
-<p align="center"><img src="screenshots/logo.png" alt="SavingsZetu App" height="250px"></p>
+<p align="center"><img src="screenshots/logo.png" alt="SavingsZetu App" height="130px"></p>
 
 # SavingsZetu App
 An Android app built with Kotlin, to help students at Kibabii University make monthly class welfare contributions. It is built with the MVVM pattern and the latest Jetpack components. Firebase as the backend
