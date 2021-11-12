@@ -1,4 +1,4 @@
-<p align="center"><img src="screenshots/helmet.png" alt="StarWars" height="150px"></p>
+<p align="center"><img src="screenshots/ic_launcher-playstore.png" alt="SavingsZetu App" height="150px"></p>
 
 # SavingsZetu App
 An Android app built with Kotlin, to help students at Kibabii University make monthly contributions. . It is built with the MVVM pattern and the latest Jetpack components.
