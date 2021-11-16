@@ -2,22 +2,23 @@ package com.kanyideveloper.savingszetu.ui.fragments.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
 import com.kanyideveloper.savingszetu.R
 import com.kanyideveloper.savingszetu.databinding.FragmentSplashBinding
 import com.kanyideveloper.savingszetu.ui.activities.MainActivity
+import com.kanyideveloper.savingszetu.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,15 +28,15 @@ class SplashFragment : Fragment() {
 
         val view = binding.root
 
-        Handler().postDelayed(Runnable {
-            if (FirebaseAuth.getInstance().currentUser != null) {
+        viewModel.value.observe(viewLifecycleOwner, {
+            if(it){
+                findNavController().navigate(R.id.action_splashFragment_to_authsDashboardFragment)
+            }else{
                 startActivity(Intent(requireContext(), MainActivity::class.java))
                 requireActivity().finish()
-            } else {
-                findNavController().navigate(R.id.action_splashFragment_to_authsDashboardFragment)
             }
-        }, 3000)
-
+        })
+        viewModel.setValue()
         return view
     }
 }
