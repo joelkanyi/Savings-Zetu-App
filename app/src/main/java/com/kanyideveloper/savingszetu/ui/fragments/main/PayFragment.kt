@@ -78,6 +78,7 @@ class PayFragment : Fragment(), MpesaListener {
         binding.button.setOnClickListener {
             viewModel.currentNumber.observe(viewLifecycleOwner, Observer { amount ->
                 viewModel.pay(phone, amount)
+                Toast.makeText(requireContext(), "Wait for M-Pesa Pane and input pin", Toast.LENGTH_LONG).show()
             })
         }
 
